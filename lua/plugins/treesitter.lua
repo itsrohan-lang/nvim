@@ -11,8 +11,9 @@ return {
         "vimdoc",
         "query", -- Parser for Tree-sitter query files (.scm)
         "regex", -- Parser for regular expressions
-        "javascript",
+        "javascript", -- JS and standard JSX
         "typescript",
+        "tsx", -- TypeScript JSX
         "html",
         "css",
         "python",
@@ -22,6 +23,12 @@ return {
         "yaml",
         "markdown",
         "bash",
+        "c",
+        "cpp", -- C++
+        "zig",
+        "php",
+        "php_only",
+        "nix",
       },
       highlight = { enable = true },
       indent = { enable = true },

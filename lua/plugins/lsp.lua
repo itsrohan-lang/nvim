@@ -17,6 +17,12 @@ return {
           "pyright",
           "jsonls",
           "yamlls",
+          "clangd", -- C/C++
+          "gopls", -- Go
+          "rust_analyzer", -- Rust
+          "zls", -- Zig
+          "intelephense", -- PHP
+          "nil", -- Nix
         },
       })
 
@@ -43,6 +49,12 @@ return {
         "pyright",
         "jsonls",
         "yamlls",
+        "clangd",
+        "gopls",
+        "rust_analyzer",
+        "zls",
+        "intelephense",
+        "nil",
       }
 
       -- Configure and enable each server using native Neovim 0.11 APIs
