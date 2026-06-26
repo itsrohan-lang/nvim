@@ -1,6 +1,6 @@
 # Custom Neovim Configuration
 
-A clean, modern, and high-performance custom Neovim configuration built on top of `lazy.nvim`. It includes native LSP integration, treesitter syntax highlighting, fuzzy finding via Telescope, and a fully featured file explorer.
+A clean, modern, and high-performance custom Neovim configuration utilizing Neovim's built-in native package manager. It includes native LSP integration, treesitter syntax highlighting, fuzzy finding via Telescope, and a fully featured file explorer.
 
 * **Leader Key:** `Space` (represented as `<leader>` below)
 
@@ -72,10 +72,9 @@ Advanced code intelligence, diagnostics, and navigation. Runs automatically for 
 
 ---
 
-## 4. Auto-Completion & AI Syntax Suggestions
-Automatic dropdown completions, inline ghost text previews, and free AI-powered code autocomplete.
+## 4. Auto-Completion & Inline Ghost Text (nvim-cmp)
+Automatic dropdown completions and inline ghost text previews.
 
-### A. Pop-up Completions & Ghost Text (nvim-cmp)
 As you type, a pop-up menu will appear. The top suggestion is also displayed directly in your code as light-grey **inline ghost text**.
 
 | Keybind | Action | Description |
@@ -85,14 +84,3 @@ As you type, a pop-up menu will appear. The top suggestion is also displayed dir
 | `Ctrl + Space` | **Trigger** | Manually open the completion menu |
 | `Ctrl + e` | **Close** | Abort and close the completion menu |
 | `Enter` | **Confirm** | Insert the currently selected item |
-
-### B. AI-Powered Autocomplete (Codeium)
-**Codeium** provides ultra-fast, context-aware AI code suggestions (similar to GitHub Copilot) in grey inline ghost text. 
-* *Note: To activate it for the first time, run the command `:Codeium Auth` in Neovim and follow the on-screen instructions.*
-
-| Keybind | Action | Description |
-|---|---|---|
-| `Ctrl + g` | **Accept Suggestion** | Accept and insert the current AI suggestion |
-| `Alt + ]` | **Next Suggestion** | Cycle to the next available AI suggestion |
-| `Alt + [` | **Prev Suggestion** | Cycle to the previous available AI suggestion |
-| `Ctrl + x` | **Clear Suggestion** | Clear/hide the current AI suggestion |
