@@ -1,14 +1,21 @@
 return {
   {
-    "zenbones-theme/zenbones.nvim",
-    dependencies = "rktjmp/lush.nvim",
-    lazy = false,
+    "folke/tokyonight.nvim",
+    lazy = true,
     priority = 1000,
+    opts = {
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
+    },
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "neobones",
+      colorscheme = "tokyonight",
+      transparent = true,
     },
   },
 }
