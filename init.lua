@@ -76,3 +76,90 @@ require("plugins.editor")
 require("plugins.coding")
 require("plugins.treesitter")
 require("plugins.lsp")
+
+-- 5. Asynchronous Plugin Updater (:PluginUpdate)
+-- Updates all installed native plugins in parallel without blocking the editor
+vim.api.nvim_create_user_command("PluginUpdate", function()
+  local pack_path = vim.fn.stdpath("data") .. "/site/pack/plugins/start"
+  local uv = vim.uv or vim.loop
+  local plugins_to_update = {}
+
+  local handle = uv.fs_scandir(pack_path)
+  if not handle then
+    vim.api.nvim_echo({ { "Failed to read plugin directory.", "ErrorMsg" } }, true, {})
+    return
+  end
+
+  while true do
+    local name, type = uv.fs_scandir_next(handle)
+    if not name then break end
+    if type == "directory" and name ~= "." and name ~= ".." then
+      table.insert(plugins_to_update, name)
+    end
+  end
+
+  if #plugins_to_update == 0 then
+    vim.api.nvim_echo({ { "No plugins found to update.", "WarningMsg" } }, true, {})
+    return
+  end
+
+  vim.api.nvim_echo({ { "Checking for updates in the background...", "WarningMsg" } }, true, {})
+
+  local completed = 0
+  local updated = {}
+  local failed = {}
+
+  for _, name in ipairs(plugins_to_update) do
+    local path = pack_path .. "/" .. name
+    vim.fn.jobstart({ "git", "-C", path, "pull", "--rebase", "--depth=1" }, {
+      on_exit = function(_, exit_code)
+        completed = completed + 1
+        if exit_code == 0 then
+          table.insert(updated, name)
+        else
+          table.insert(failed, name)
+        end
+
+        -- Print summary once all jobs finish
+        if completed == #plugins_to_update then
+          local msg = { { "Plugin Update Complete!\n", "WarningMsg" } }
+          if #updated > 0 then
+            table.insert(msg, { "Successfully updated: " .. table.concat(updated, ", ") .. "\n", "Normal" })
+          end
+          if #failed > 0 then
+            table.insert(msg, { "Failed to update: " .. table.concat(failed, ", ") .. "\n", "ErrorMsg" })
+          end
+          vim.schedule(function()
+            vim.api.nvim_echo(msg, true, {})
+          end)
+        end
+      end
+    })
+  end
+end, {})
+
+-- Automatic background update check (triggers once every 7 days)
+local cache_dir = vim.fn.stdpath("cache")
+local timestamp_file = cache_dir .. "/last_plugin_update"
+local current_time = os.time()
+local seven_days = 7 * 24 * 60 * 60
+
+local last_update = 0
+local f = io.open(timestamp_file, "r")
+if f then
+  local content = f:read("*all")
+  f:close()
+  last_update = tonumber(content) or 0
+end
+
+if current_time - last_update > seven_days then
+  vim.defer_fn(function()
+    vim.cmd("PluginUpdate")
+    -- Save new timestamp
+    local f_write = io.open(timestamp_file, "w")
+    if f_write then
+      f_write:write(tostring(current_time))
+      f_write:close()
+    end
+  end, 1000) -- Delays execution by 1 second to keep initial startup instantaneous
+end

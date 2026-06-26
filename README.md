@@ -113,6 +113,20 @@ Once installed, you can easily customize the configuration to match your own sty
 
 ---
 
+### 4. Automatic & Manual Plugin Updates
+
+To keep your Neovim environment up-to-date with the latest features and bug fixes of your 27 installed plugins, this configuration includes a built-in native update system:
+
+*   **Automatic Background Updates:** Every 7 days, Neovim will silently check and pull updates for all your plugins in the background upon startup. Because it runs completely asynchronously, it adds **zero milliseconds of startup lag**—your editor will still open instantly, and you will see a clean progress message at the bottom of the screen only when the updates are complete!
+*   **Manual Updates:** You can manually trigger a full update of all your plugins at any time by running the following command in Neovim:
+    ```vim
+    :PluginUpdate
+    ```
+    This runs all update tasks in parallel in the background, allowing you to continue coding uninterrupted while it works.
+
+---
+
+
 
 ## General Window Navigation
 Quickly switch focus between splits (e.g., between the file explorer and the file editor).
