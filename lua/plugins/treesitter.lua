@@ -9,6 +9,8 @@ return {
         "lua",
         "vim",
         "vimdoc",
+        "query", -- Parser for Tree-sitter query files (.scm)
+        "regex", -- Parser for regular expressions
         "javascript",
         "typescript",
         "html",
