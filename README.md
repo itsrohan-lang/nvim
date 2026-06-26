@@ -1,6 +1,6 @@
 # Custom Neovim Configuration
 
-A clean, modern, and high-performance custom Neovim configuration utilizing Neovim's built-in native package manager. It includes native LSP integration, treesitter syntax highlighting, fuzzy finding via Telescope, a fully featured file explorer, an interactive statusline, a visual buffer/tab bar, and git gutter integrations.
+A clean, modern, and high-performance custom Neovim configuration utilizing Neovim's built-in native package manager. It includes native LSP integration, treesitter syntax highlighting, fuzzy finding via Telescope, a fully featured file explorer, an interactive statusline, a visual buffer/tab bar, git gutter integrations, a popup keymap helper, automatic formatting on save, and a beautiful diagnostics panel.
 
 * **Leader Key:** `Space` (represented as `<leader>` below)
 
@@ -124,3 +124,42 @@ Real-time, colored git diff indicators in the left sign column (gutter) and inte
 | `<leader>hd` | **Diff Index** | View diff of the current file against the git index |
 | `<leader>hD` | **Diff Commit** | View diff of the current file against the last commit |
 | `<leader>td` | **Toggle Deleted** | Toggle inline display of deleted lines |
+
+---
+
+## 7. Keymap Helper (which-key.nvim)
+A clean, interactive popup panel at the bottom of the screen that automatically appears when you press a prefix key (like `<leader>`, `g`, or `z`), displaying all available keybinds and their descriptions.
+
+Simply press `<leader>` (Space) or any other prefix key and wait for a second to see the interactive menu of all registered keymap prefixes and actions!
+
+---
+
+## 8. Auto-Formatting on Save (conform.nvim)
+A lightweight formatter runner that automatically runs industry-standard formatters every time you save a file (`:w`), or manually via a keybind.
+
+### Configured Formatters:
+* **Lua:** StyLua (`stylua`)
+* **JavaScript / TypeScript / HTML / CSS / JSON / Markdown:** Prettier (`prettier`/`prettierd`)
+* **Python:** Black (`black`)
+* **Shell Scripts:** shfmt (`shfmt`)
+* **Rust:** rustfmt (`rustfmt`)
+* **Go:** gofmt, goimports
+
+### Keybinds:
+| Keybind | Action | Description |
+|---|---|---|
+| `<leader>cf` | **Format Code** | Manually formats the current buffer or visually selected range |
+
+---
+
+## 9. Diagnostics Panel (trouble.nvim)
+A beautiful, interactive split panel at the bottom of your screen listing all syntax errors, warnings, and hints in your project.
+
+| Keybind | Action | Description |
+|---|---|---|
+| `<leader>xx` | **Workspace Diagnostics** | Toggle the Trouble panel showing errors in the entire project |
+| `<leader>xX` | **Buffer Diagnostics** | Toggle the Trouble panel showing errors in the current active file |
+| `<leader>cs` | **Symbols** | Toggle a sidebar showing document symbols (functions, classes, variables) |
+| `<leader>cl` | **LSP Definitions/References** | Toggle a panel showing LSP definitions, references, and implementations |
+| `<leader>xL` | **Location List** | Toggle Neovim's location list in Trouble |
+| `<leader>xQ` | **Quickfix List** | Toggle Neovim's quickfix list in Trouble |

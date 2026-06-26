@@ -29,6 +29,9 @@ local plugins = {
   { name = "lualine.nvim", repo = "https://github.com/nvim-lualine/lualine.nvim.git" },
   { name = "bufferline.nvim", repo = "https://github.com/akinsho/bufferline.nvim.git" },
   { name = "gitsigns.nvim", repo = "https://github.com/lewis6991/gitsigns.nvim.git" },
+  { name = "which-key.nvim", repo = "https://github.com/folke/which-key.nvim.git" },
+  { name = "conform.nvim", repo = "https://github.com/stevearc/conform.nvim.git" },
+  { name = "trouble.nvim", repo = "https://github.com/folke/trouble.nvim.git" },
 }
 
 local missing_plugins = {}
