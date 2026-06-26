@@ -163,3 +163,33 @@ A beautiful, interactive split panel at the bottom of your screen listing all sy
 | `<leader>cl` | **LSP Definitions/References** | Toggle a panel showing LSP definitions, references, and implementations |
 | `<leader>xL` | **Location List** | Toggle Neovim's location list in Trouble |
 | `<leader>xQ` | **Quickfix List** | Toggle Neovim's quickfix list in Trouble |
+
+---
+
+## 10. Inline PDF & Image Previews (image.nvim)
+Provides high-resolution, inline image and PDF page rendering directly inside your Neovim buffers (such as in Markdown files or when opening images/PDFs directly).
+
+### Compatible Terminal Emulators:
+To view inline graphics, you must use a terminal emulator that supports advanced graphics protocols:
+*   **WezTerm** (iTerm2/Kitty protocol)
+*   **Kitty** (Kitty protocol)
+*   **Ghostty** (Kitty protocol)
+*   **iTerm2** (iTerm2 protocol)
+
+*Note: The default macOS Terminal app does not support inline graphics.*
+
+### Required System Dependencies:
+To enable image and PDF rendering, run the following commands on your system:
+1.  **Install ImageMagick & Poppler (macOS):**
+    ```bash
+    brew install imagemagick poppler
+    ```
+    *(Poppler is required for `pdftoppm`, which converts PDF pages into images on-the-fly for rendering).*
+2.  **Install Lua Magick binding:**
+    Ensure you have `luarocks` installed on your system (e.g., `brew install luarocks`) and run:
+    ```bash
+    luarocks --local --lua-version=5.1 install magick
+    ```
+
+*Neovim will boot up perfectly even if these system dependencies are missing, thanks to a protective load check. Previews will activate automatically once the dependencies are installed and you open a supported file.*
+

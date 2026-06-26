@@ -165,3 +165,33 @@ require("gitsigns").setup({
     map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select Git Hunk" })
   end,
 })
+
+-- Configure Inline Image & PDF Previews (image.nvim)
+-- Loaded inside pcall to ensure Neovim boots successfully even if system dependencies (like magick) are missing
+local ok_image, image = pcall(require, "image")
+if ok_image then
+  image.setup({
+    backend = "kitty", -- Kitty/WezTerm/Ghostty graphics protocol. Automatically falls back on supported terminals.
+    integrations = {
+      markdown = {
+        enabled = true,
+        clear_in_insert_mode = true,
+        download_remote_images = true,
+        only_render_image_at_cursor = false,
+        floating_windows = false,
+      },
+      pdf = {
+        enabled = true, -- Enables PDF rendering using pdftoppm (requires poppler)
+      },
+    },
+    max_width = nil,
+    max_height = nil,
+    max_width_window_percentage = nil,
+    max_height_window_percentage = 50,
+    window_overlap_clear_enabled = false,
+    window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+    editor_only_render_when_focused = false,
+    tmux_show_only_in_active_window = false,
+    hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.pdf" },
+  })
+end
