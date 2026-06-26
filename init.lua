@@ -34,6 +34,9 @@ local plugins = {
   { name = "trouble.nvim", repo = "https://github.com/folke/trouble.nvim.git" },
   { name = "dressing.nvim", repo = "https://github.com/stevearc/dressing.nvim.git" },
   { name = "image.nvim", repo = "https://github.com/3rd/image.nvim.git" },
+  { name = "alpha-nvim", repo = "https://github.com/goolord/alpha-nvim.git" },
+  { name = "persistence.nvim", repo = "https://github.com/folke/persistence.nvim.git" },
+  { name = "harpoon", repo = "https://github.com/ThePrimeagen/harpoon.git", branch = "harpoon2" },
 }
 
 local missing_plugins = {}
@@ -50,7 +53,14 @@ if #missing_plugins > 0 then
   for _, plugin in ipairs(missing_plugins) do
     local plugin_path = pack_path .. "/" .. plugin.name
     vim.api.nvim_echo({ { "Cloning " .. plugin.name .. "...", "Normal" } }, true, {})
-    local out = vim.fn.system({ "git", "clone", "--depth=1", plugin.repo, plugin_path })
+    local cmd = { "git", "clone", "--depth=1" }
+    if plugin.branch then
+      table.insert(cmd, "-b")
+      table.insert(cmd, plugin.branch)
+    end
+    table.insert(cmd, plugin.repo)
+    table.insert(cmd, plugin_path)
+    local out = vim.fn.system(cmd)
     if vim.v.shell_error ~= 0 then
       vim.api.nvim_echo({ { "Failed to clone " .. plugin.name .. ":\n" .. out, "ErrorMsg" } }, true, {})
     end

@@ -1,6 +1,6 @@
 # Custom Neovim Configuration
 
-A clean, modern, and high-performance custom Neovim configuration utilizing Neovim's built-in native package manager. It includes native LSP integration, treesitter syntax highlighting, fuzzy finding via Telescope, a fully featured file explorer, an interactive statusline, a visual buffer/tab bar, git gutter integrations, a popup keymap helper, automatic formatting on save, and a beautiful diagnostics panel.
+A clean, modern, and high-performance custom Neovim configuration utilizing Neovim's built-in native package manager. It includes native LSP integration, treesitter syntax highlighting, fuzzy finding via Telescope, a fully featured file explorer, an interactive statusline, a visual buffer/tab bar, git gutter integrations, a popup keymap helper, automatic formatting on save, a beautiful diagnostics panel, an interactive welcome dashboard, workspace session persistence, and quick file pinning via Harpoon.
 
 * **Leader Key:** `Space` (represented as `<leader>` below)
 
@@ -192,4 +192,31 @@ To enable image and PDF rendering, run the following commands on your system:
     ```
 
 *Neovim will boot up perfectly even if these system dependencies are missing, thanks to a protective load check. Previews will activate automatically once the dependencies are installed and you open a supported file.*
+
+---
+
+## 11. Workspace Session Persistence (persistence.nvim)
+Automatically saves your open tabs, buffers, and window splits when you exit Neovim in a project folder, and allows you to restore them instantly upon reopening.
+
+You can also trigger a restore directly from the **Welcome Dashboard** using the `s` key!
+
+| Keybind | Action | Description |
+|---|---|---|
+| `<leader>qs` | **Restore Session** | Restore the saved session for the current working directory |
+| `<leader>ql` | **Restore Last Session** | Restore the last active session globally |
+| `<leader>qd` | **Don't Save Session** | Disable session saving for the current Neovim execution |
+
+---
+
+## 12. Quick File Pinning & Switching (harpoon2)
+Allows you to pin your 3-4 most-used files in a project and switch between them instantly using single-key shortcuts, bypassing tabs and search lists.
+
+| Keybind | Action | Description |
+|---|---|---|
+| `<leader>ha` | **Harpoon File** | Pin the current file to the Harpoon list |
+| `<leader>he` | **Harpoon Menu** | Toggle the interactive quick menu to view and organize pinned files |
+| `<leader>1` | **Select File 1** | Instantly switch to the 1st pinned file |
+| `<leader>2` | **Select File 2** | Instantly switch to the 2nd pinned file |
+| `<leader>3` | **Select File 3** | Instantly switch to the 3rd pinned file |
+| `<leader>4` | **Select File 4** | Instantly switch to the 4th pinned file |
 

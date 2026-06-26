@@ -195,3 +195,36 @@ if ok_image then
     hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.pdf" },
   })
 end
+
+-- Configure Welcome Dashboard (alpha-nvim)
+local alpha = require("alpha")
+local dashboard = require("alpha.themes.dashboard")
+
+-- Beautiful minimalist ASCII header
+dashboard.section.header.val = {
+  "      ▞▀▖            ▌   ▞▀▖             ▀▛▘",
+  "      ▌  ▌ ▌ ▌ ▀▛▘▞▀▖▛▀▖ ▌ ▌ ▌ ▌ ▞▀▖▛▀▖ ▌▌▌ ▌ ",
+  "      ▛▀▘▘ ▌ ▌  ▌ ▌ ▌▌ ▌ ▛▀▘ ▌ ▌ ▛▀ ▌ ▌ ▞▚  ▌ ",
+  "      ▘    ▝▀▘  ▘ ▝▀ ▘ ▘ ▘   ▝▀▘ ▝▀▘▘ ▘ ▘ ▘ ▘ ",
+  "                                              ",
+  "                - NATIVE NEOVIM -             ",
+}
+
+-- Configured quick buttons matching our keyboard layout
+dashboard.section.buttons.val = {
+  dashboard.button("f", "  Find File", "<cmd>Telescope find_files<CR>"),
+  dashboard.button("r", "  Recent Files", "<cmd>Telescope oldfiles<CR>"),
+  dashboard.button("g", "  Find Text", "<cmd>Telescope live_grep<CR>"),
+  dashboard.button("s", "  Restore Workspace", "<cmd>lua require('persistence').load()<CR>"),
+  dashboard.button("c", "  Configure Editor", "<cmd>Telescope find_files cwd=" .. vim.fn.stdpath("config") .. "<CR>"),
+  dashboard.button("q", "  Quit Neovim", "<cmd>qa<CR>"),
+}
+
+-- Colorize buttons and headers
+dashboard.section.header.opts.hl = "AlphaHeader"
+dashboard.section.buttons.opts.hl = "AlphaButtons"
+
+vim.api.nvim_set_hl(0, "AlphaHeader", { fg = "#7aa2f7" }) -- Beautiful Tokyonight Blue
+vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#bb9af7" }) -- Beautiful Tokyonight Purple
+
+alpha.setup(dashboard.opts)

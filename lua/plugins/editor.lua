@@ -35,6 +35,7 @@ wk.add({
   { "<leader>f", group = "find/file" },
   { "<leader>g", group = "git explorer" },
   { "<leader>h", group = "git hunk" },
+  { "<leader>q", group = "quit/session" },
   { "<leader>s", group = "search" },
   { "<leader>t", group = "toggle" },
   { "<leader>x", group = "diagnostics/trouble" },
@@ -50,6 +51,27 @@ vim.keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>",
 vim.keymap.set("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references (Trouble)" })
 vim.keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
 vim.keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
+
+-- Configure Session Persistence (persistence.nvim)
+require("persistence").setup({})
+
+-- Session Keymaps
+vim.keymap.set("n", "<leader>qs", function() require("persistence").load() end, { desc = "Restore Session (cwd)" })
+vim.keymap.set("n", "<leader>ql", function() require("persistence").load({ last = true }) end, { desc = "Restore Last Session" })
+vim.keymap.set("n", "<leader>qd", function() require("persistence").stop() end, { desc = "Don't Save Session on Exit" })
+
+-- Configure Harpoon (harpoon2)
+local harpoon = require("harpoon")
+harpoon:setup()
+
+-- Harpoon Keymaps
+vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end, { desc = "Harpoon File" })
+vim.keymap.set("n", "<leader>he", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "Harpoon Menu" })
+
+vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = "Harpoon File 1" })
+vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = "Harpoon File 2" })
+vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Harpoon File 3" })
+vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Harpoon File 4" })
 
 
 
