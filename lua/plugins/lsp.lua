@@ -14,7 +14,7 @@ require("mason-lspconfig").setup({
     "rust_analyzer", -- Rust
     "zls", -- Zig
     "intelephense", -- PHP
-    "nil_ls", -- Nix
+
   },
 })
 
@@ -46,7 +46,7 @@ local servers = {
   "rust_analyzer",
   "zls",
   "intelephense",
-  "nil_ls",
+
 }
 
 -- Configure and enable each server using native Neovim 0.11 APIs
