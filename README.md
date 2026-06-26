@@ -6,6 +6,106 @@ A clean, modern, and high-performance custom Neovim configuration utilizing Neov
 
 ---
 
+## 🚀 Getting Started & Installation
+
+This configuration is **100% portable, self-bootstrapping, and cross-platform**. It runs seamlessly on **macOS, Linux, and Windows**. When you open Neovim for the first time, it will automatically clone and configure all 27 native plugins for you.
+
+### 1. Prerequisites (Required Tools)
+
+To ensure Telescope (fuzzy finding), Treesitter (syntax highlighting), and LSP integrations work correctly, you must install the following tools on your system:
+
+#### 🍏 macOS (via Homebrew)
+```bash
+# Core utilities, search tools, and C compiler (for Treesitter compilation)
+brew install neovim git ripgrep fd gcc
+```
+
+#### 🐧 Linux (Debian/Ubuntu)
+```bash
+# Update package list and install tools
+sudo apt update
+sudo apt install neovim git ripgrep fd-find build-essential gcc make
+```
+*Note: On Ubuntu, `fd` is installed as `fdfind`. Neovim automatically detects this.*
+
+#### 🐧 Linux (Arch Linux)
+```bash
+sudo pacman -S neovim git ripgrep fd gcc make
+```
+
+####  Windows (via Winget / PowerShell)
+```powershell
+# Install Neovim, Git, search tools, and MinGW (C compiler for Treesitter)
+winget install Neovim.Neovim
+winget install Git.Git
+winget install BurntSushi.Ripgrep
+winget install sharkdp.fd
+winget install MSYS2.MSYS2 # Or ensure you have a C compiler like gcc/clang in your PATH
+```
+
+#### 🎨 Recommended: Nerd Font
+To display beautiful file icons in your statusline, tab bar, and file explorer, you must use a **Nerd Font** in your terminal emulator (e.g., *JetBrainsMono Nerd Font*, *FiraCode Nerd Font*, or *Hack Nerd Font*).
+* Download from: [Nerd Fonts Releases](https://www.nerdfonts.com/font-downloads)
+
+---
+
+### 2. How to Clone & Install this Configuration
+
+To set up this configuration for yourself or another user, follow these steps:
+
+#### Step A: Back up your existing configuration (if any)
+Before copying this setup, rename or move your current Neovim files to keep a backup.
+*   **macOS / Linux:**
+    ```bash
+    mv ~/.config/nvim ~/.config/nvim.backup
+    mv ~/.local/share/nvim ~/.local/share/nvim.backup
+    mv ~/.local/state/nvim ~/.local/state/nvim.backup
+    mv ~/.cache/nvim ~/.cache/nvim.backup
+    ```
+*   **Windows (PowerShell):**
+    ```powershell
+    Rename-Item -Path "$env:LOCALAPPDATA\nvim" -NewName "nvim.backup"
+    Rename-Item -Path "$env:LOCALAPPDATA\nvim-data" -NewName "nvim-data.backup"
+    ```
+
+#### Step B: Clone the configuration
+Clone this repository into Neovim's default configuration path:
+*   **macOS / Linux:**
+    ```bash
+    git clone <your-repository-url> ~/.config/nvim
+    ```
+*   **Windows (PowerShell):**
+    ```powershell
+    git clone <your-repository-url> "$env:LOCALAPPDATA\nvim"
+    ```
+
+#### Step C: Start Neovim and let it Auto-Bootstrap!
+Simply launch Neovim:
+```bash
+nvim
+```
+The built-in **native bootstrapper** will automatically detect that plugins are missing, print a message, and download all 27 packages directly from GitHub into your native package directory.
+Once complete, **restart Neovim** and everything will be active!
+
+---
+
+### 3. How to Personalize the Configuration for Yourself
+
+Once installed, you can easily customize the configuration to match your own style:
+
+1.  **Customize Options (Tab size, line numbers, etc.):**
+    Open [options.lua](file:///Users/rohan/.config/nvim/lua/config/options.lua). Here you can adjust tab widths (default is 2 spaces), enable/disable relative line numbers, or adjust window splits.
+2.  **Add/Modify Keybinds:**
+    Open [keymaps.lua](file:///Users/rohan/.config/nvim/lua/config/keymaps.lua). You can add your own custom keyboard shortcuts or change existing ones.
+3.  **Manage Language Servers (LSP) & Formatters:**
+    *   Open Neovim and run `:Mason`. This will open an interactive installer panel where you can search and install language servers, formatters, and linters for your specific programming languages.
+    *   To ensure certain servers are automatically installed on startup, edit the `ensure_installed` list in [lsp.lua](file:///Users/rohan/.config/nvim/lua/plugins/lsp.lua) (for LSPs) and [coding.lua](file:///Users/rohan/.config/nvim/lua/plugins/coding.lua) (for formatters).
+4.  **Edit Dashboard Welcome Message:**
+    Open [ui.lua](file:///Users/rohan/.config/nvim/lua/plugins/ui.lua) and scroll to the bottom. You can change the welcome subtitle `[ Rohan's Development Environment ]` to your own name or favorite quote!
+
+---
+
+
 ## General Window Navigation
 Quickly switch focus between splits (e.g., between the file explorer and the file editor).
 
