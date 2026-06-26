@@ -211,6 +211,9 @@ require("lazy").setup({
         local luasnip = require("luasnip")
 
         cmp.setup({
+          experimental = {
+            ghost_text = true, -- Shows grey inline "ghost text" for the top suggestion
+          },
           snippet = {
             expand = function(args)
               luasnip.lsp_expand(args.body)
@@ -249,6 +252,32 @@ require("lazy").setup({
             { name = "buffer" },
           }),
         })
+      end,
+    },
+
+    -- Codeium (Free AI Coding Assistant / Copilot Alternative)
+    {
+      "Exafunction/codeium.vim",
+      event = "BufReadPost",
+      config = function()
+        -- Disable standard Tab keymap to avoid conflicts with nvim-cmp
+        vim.g.codeium_no_map_tab = 1
+        -- Map C-g (Ctrl + g) to accept the AI suggestion
+        vim.keymap.set("i", "<C-g>", function()
+          return vim.fn["codeium#Accept"]()
+        end, { expr = true, silent = true })
+        -- Map Alt + ] and Alt + [ to cycle through AI suggestions
+        vim.keymap.set("i", "<M-]>", function()
+          return vim.fn["codeium#CycleCompletions"](1)
+        end, { expr = true, silent = true })
+        -- Map Alt + [ to cycle backward
+        vim.keymap.set("i", "<M-[>", function()
+          return vim.fn["codeium#CycleCompletions"](-1)
+        end, { expr = true, silent = true })
+        -- Map Ctrl + x to clear the current AI suggestion
+        vim.keymap.set("i", "<C-x>", function()
+          return vim.fn["codeium#Clear"]()
+        end, { expr = true, silent = true })
       end,
     },
 

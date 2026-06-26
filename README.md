@@ -72,8 +72,11 @@ Advanced code intelligence, diagnostics, and navigation. Runs automatically for 
 
 ---
 
-## 4. Auto-Completion (nvim-cmp)
-Automatic popup completions as you type.
+## 4. Auto-Completion & AI Syntax Suggestions
+Automatic dropdown completions, inline ghost text previews, and free AI-powered code autocomplete.
+
+### A. Pop-up Completions & Ghost Text (nvim-cmp)
+As you type, a pop-up menu will appear. The top suggestion is also displayed directly in your code as light-grey **inline ghost text**.
 
 | Keybind | Action | Description |
 |---|---|---|
@@ -82,3 +85,14 @@ Automatic popup completions as you type.
 | `Ctrl + Space` | **Trigger** | Manually open the completion menu |
 | `Ctrl + e` | **Close** | Abort and close the completion menu |
 | `Enter` | **Confirm** | Insert the currently selected item |
+
+### B. AI-Powered Autocomplete (Codeium)
+**Codeium** provides ultra-fast, context-aware AI code suggestions (similar to GitHub Copilot) in grey inline ghost text. 
+* *Note: To activate it for the first time, run the command `:Codeium Auth` in Neovim and follow the on-screen instructions.*
+
+| Keybind | Action | Description |
+|---|---|---|
+| `Ctrl + g` | **Accept Suggestion** | Accept and insert the current AI suggestion |
+| `Alt + ]` | **Next Suggestion** | Cycle to the next available AI suggestion |
+| `Alt + [` | **Prev Suggestion** | Cycle to the previous available AI suggestion |
+| `Ctrl + x` | **Clear Suggestion** | Clear/hide the current AI suggestion |
