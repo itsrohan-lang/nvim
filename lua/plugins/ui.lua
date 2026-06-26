@@ -52,3 +52,99 @@ require("neo-tree").setup({
     },
   },
 })
+
+-- Configure Statusline (lualine.nvim)
+require("lualine").setup({
+  options = {
+    theme = "tokyonight",
+    globalstatus = true,
+    component_separators = { left = "│", right = "│" },
+    section_separators = { left = "", right = "" },
+    disabled_filetypes = {
+      statusline = { "dashboard", "alpha", "starter" },
+    },
+  },
+  sections = {
+    lualine_a = { { "mode", separator = { left = "", right = "" }, right_padding = 2 } },
+    lualine_b = { "branch", "diff", "diagnostics" },
+    lualine_c = { { "filename", path = 1 } },
+    lualine_x = { "encoding", "fileformat", "filetype" },
+    lualine_y = { "progress" },
+    lualine_z = { { "location", separator = { left = "", right = "" }, left_padding = 2 } },
+  },
+})
+
+-- Configure Tabline/Bufferline (bufferline.nvim)
+require("bufferline").setup({
+  options = {
+    diagnostics = "nvim_lsp",
+    always_show_bufferline = true,
+    offsets = {
+      {
+        filetype = "neo-tree",
+        text = "File Explorer",
+        text_align = "left",
+        separator = true,
+      },
+    },
+    show_buffer_close_icons = true,
+    show_close_icon = true,
+  },
+})
+
+-- Buffer Navigation Keymaps
+vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
+vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete Buffer" })
+
+-- Configure Git Gutter Indicators (gitsigns.nvim)
+require("gitsigns").setup({
+  signs = {
+    add          = { text = "▎" },
+    change       = { text = "▎" },
+    delete       = { text = "" },
+    topdelete    = { text = "" },
+    changedelete = { text = "░" },
+    untracked    = { text = "▎" },
+  },
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map("n", "]c", function()
+      if vim.wo.diff then return "]c" end
+      vim.schedule(function() gs.next_hunk() end)
+      return "<Ignore>"
+    end, { expr = true, desc = "Next Git Hunk" })
+
+    map("n", "[c", function()
+      if vim.wo.diff then return "[c" end
+      vim.schedule(function() gs.prev_hunk() end)
+      return "<Ignore>"
+    end, { expr = true, desc = "Prev Git Hunk" })
+
+    -- Actions
+    map("n", "<leader>hs", gs.stage_hunk, { desc = "Stage Hunk" })
+    map("n", "<leader>hr", gs.reset_hunk, { desc = "Reset Hunk" })
+    map("v", "<leader>hs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage Hunk (Visual)" })
+    map("v", "<leader>hr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset Hunk (Visual)" })
+    map("n", "<leader>hS", gs.stage_buffer, { desc = "Stage Buffer" })
+    map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo Stage Hunk" })
+    map("n", "<leader>hR", gs.reset_buffer, { desc = "Reset Buffer" })
+    map("n", "<leader>hp", gs.preview_hunk, { desc = "Preview Hunk Inline" })
+    map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, { desc = "Blame Line" })
+    map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "Toggle Git Blame Line" })
+    map("n", "<leader>hd", gs.diffthis, { desc = "Diff Against Index" })
+    map("n", "<leader>hD", function() gs.diffthis("~") end, { desc = "Diff Against Last Commit" })
+    map("n", "<leader>td", gs.toggle_deleted, { desc = "Toggle Git Deleted Lines" })
+
+    -- Text object
+    map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select Git Hunk" })
+  end,
+})

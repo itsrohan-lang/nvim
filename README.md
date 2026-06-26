@@ -1,6 +1,6 @@
 # Custom Neovim Configuration
 
-A clean, modern, and high-performance custom Neovim configuration utilizing Neovim's built-in native package manager. It includes native LSP integration, treesitter syntax highlighting, fuzzy finding via Telescope, and a fully featured file explorer.
+A clean, modern, and high-performance custom Neovim configuration utilizing Neovim's built-in native package manager. It includes native LSP integration, treesitter syntax highlighting, fuzzy finding via Telescope, a fully featured file explorer, an interactive statusline, a visual buffer/tab bar, and git gutter integrations.
 
 * **Leader Key:** `Space` (represented as `<leader>` below)
 
@@ -85,3 +85,42 @@ As you type, a pop-up menu will appear. The top suggestion is also displayed dir
 | `Ctrl + Space` | **Trigger** | Manually open the completion menu |
 | `Ctrl + e` | **Close** | Abort and close the completion menu |
 | `Enter` | **Confirm** | Insert the currently selected item |
+
+---
+
+## 5. Buffer Navigation & Tabline (bufferline.nvim)
+A visual tab bar at the top of your editor displaying all open files (buffers) with language icons and diagnostics.
+
+| Keybind | Action | Description |
+|---|---|---|
+| `Shift + h` | **Previous Buffer** | Switch to the previous open file/buffer |
+| `Shift + l` | **Next Buffer** | Switch to the next open file/buffer |
+| `<leader>bd` | **Delete Buffer** | Close/delete the current file/buffer without closing your window split |
+
+---
+
+## 6. Git Gutter & Integration (gitsigns.nvim)
+Real-time, colored git diff indicators in the left sign column (gutter) and interactive git operations.
+
+### Git Gutter Indicators:
+* `▎` (Green) — Line added
+* `▎` (Yellow) — Line modified
+* `` (Red) — Line deleted
+* `░` (Grey) — Mixed change/delete
+
+### Git Keybinds:
+| Keybind | Action | Description |
+|---|---|---|
+| `]c` | **Next Hunk** | Jump to the next changed block of code |
+| `[c` | **Prev Hunk** | Jump to the previous changed block of code |
+| `<leader>hs` | **Stage Hunk** | Stage the changed block of code under the cursor |
+| `<leader>hr` | **Reset Hunk** | Discard/revert the changed block of code under the cursor |
+| `<leader>hS` | **Stage Buffer** | Stage all changes in the current file |
+| `<leader>hu` | **Undo Stage** | Undo the last staged hunk |
+| `<leader>hR` | **Reset Buffer** | Discard/revert all changes in the current file |
+| `<leader>hp` | **Preview Hunk** | Show a floating popup containing the git diff for the current hunk |
+| `<leader>hb` | **Blame Line** | Show git blame information (author, commit, date) for the current line |
+| `<leader>tb` | **Toggle Blame** | Toggle virtual text showing git blame at the end of the current line |
+| `<leader>hd` | **Diff Index** | View diff of the current file against the git index |
+| `<leader>hD` | **Diff Commit** | View diff of the current file against the last commit |
+| `<leader>td` | **Toggle Deleted** | Toggle inline display of deleted lines |

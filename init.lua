@@ -26,6 +26,9 @@ local plugins = {
   { name = "nvim-lspconfig", repo = "https://github.com/neovim/nvim-lspconfig.git" },
   { name = "mason.nvim", repo = "https://github.com/williamboman/mason.nvim.git" },
   { name = "mason-lspconfig.nvim", repo = "https://github.com/williamboman/mason-lspconfig.nvim.git" },
+  { name = "lualine.nvim", repo = "https://github.com/nvim-lualine/lualine.nvim.git" },
+  { name = "bufferline.nvim", repo = "https://github.com/akinsho/bufferline.nvim.git" },
+  { name = "gitsigns.nvim", repo = "https://github.com/lewis6991/gitsigns.nvim.git" },
 }
 
 local missing_plugins = {}
