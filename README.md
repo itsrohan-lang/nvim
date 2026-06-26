@@ -2,6 +2,14 @@
 
 A clean, modern, and high-performance custom Neovim configuration utilizing Neovim's built-in native package manager. It includes native LSP integration, treesitter syntax highlighting, fuzzy finding via Telescope, a fully featured file explorer, an interactive statusline, a visual buffer/tab bar, git gutter integrations, a popup keymap helper, automatic formatting on save, a beautiful diagnostics panel, an interactive welcome dashboard, workspace session persistence, and quick file pinning via Harpoon.
 
+## 📷 Screenshots
+
+### Welcome Dashboard
+![Welcome Dashboard](assets/dashboard.png)
+
+### Code Editor & Autocomplete
+![Code Editor & Autocomplete](assets/editor.png)
+
 * **Leader Key:** `Space` (represented as `<leader>` below)
 
 ---
