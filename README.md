@@ -48,8 +48,8 @@ Manage files, directories, git status, and open buffers.
 | `<leader>be` | **Buffer Explorer** | Opens a panel showing all your active buffers |
 
 ### Navigation & Management Inside Neo-tree:
-* `n` — **Create File/Folder:** Hover over a directory, press `n`, type a filename (e.g. `app.js`) or a folder name ending with `/` (e.g. `src/`).
-* `N` — **Create Directory:** Hover over a directory, press `N`, and type the folder name to create it.
+* `a` or `n` — **Create File/Folder:** Hover over a directory, press `a` (LazyVim default) or `n`, and enter the name in the centered floating prompt. End with `/` to create a directory (e.g., `src/`), or omit the slash to create a file (e.g., `app.js`).
+* `A` or `N` — **Create Directory:** Hover over a directory, press `A` or `N`, and enter the directory name to create it.
 * `d` — **Delete:** Delete the hovered file or directory.
 * `r` — **Rename:** Rename the hovered file or directory.
 * `y` — **Copy Name:** Copy the name of the file/folder to the system clipboard.

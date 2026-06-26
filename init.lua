@@ -32,6 +32,7 @@ local plugins = {
   { name = "which-key.nvim", repo = "https://github.com/folke/which-key.nvim.git" },
   { name = "conform.nvim", repo = "https://github.com/stevearc/conform.nvim.git" },
   { name = "trouble.nvim", repo = "https://github.com/folke/trouble.nvim.git" },
+  { name = "dressing.nvim", repo = "https://github.com/stevearc/dressing.nvim.git" },
 }
 
 local missing_plugins = {}

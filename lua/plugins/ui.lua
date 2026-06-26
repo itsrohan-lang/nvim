@@ -8,6 +8,21 @@ require("tokyonight").setup({
 })
 vim.cmd([[colorscheme tokyonight-storm]])
 
+-- Configure Beautiful UI Prompts (dressing.nvim)
+require("dressing").setup({
+  input = {
+    enabled = true,
+    default_prompt = "➤ ",
+    border = "rounded",
+    relative = "editor",
+    prefer_width = 40,
+  },
+  select = {
+    enabled = true,
+    backend = { "telescope", "builtin" },
+  },
+})
+
 -- Configure File Explorer (Neo-tree)
 -- Set global keymaps for Neo-tree (since we are not using lazy.nvim's keys property)
 vim.keymap.set("n", "<leader>fe", function()
@@ -47,6 +62,8 @@ require("neo-tree").setup({
     mappings = {
       ["<space>"] = "none", -- Disable space to prevent conflict with leader key
       ["/"] = "none", -- Disable filtering, fallback to standard Vim search
+      ["a"] = { "add", config = { show_path = "none" } }, -- Create new file/directory (end with / for directory)
+      ["A"] = "add_directory", -- Explicitly create new directory
       ["n"] = { "add", config = { show_path = "none" } }, -- Create new file/directory (end with / for directory)
       ["N"] = "add_directory", -- Explicitly create new directory
     },
