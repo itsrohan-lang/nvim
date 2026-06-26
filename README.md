@@ -19,6 +19,22 @@ Quickly switch focus between splits (e.g., between the file explorer and the fil
 
 ---
 
+## Ergonomic Editing & Navigation
+Highly productive editing utilities and comfortable navigation helpers that reduce eye strain and speed up text manipulation.
+
+| Keybind | Action | Description |
+|---|---|---|
+| `Ctrl + d` | **Scroll Down & Center** | Page-down through your file and automatically lock the cursor in the center of the screen |
+| `Ctrl + u` | **Scroll Up & Center** | Page-up through your file and automatically lock the cursor in the center of the screen |
+| `n` | **Next Match & Center** | Jump to the next search match and lock the cursor in the center of the screen |
+| `N` | **Prev Match & Center** | Jump to the previous search match and lock the cursor in the center of the screen |
+| `J` (Visual Mode) | **Drag Selection Down** | Slide the selected block of code down one line and auto-indent it |
+| `K` (Visual Mode) | **Drag Selection Up** | Slide the selected block of code up one line and auto-indent it |
+| `<leader>y` (Space + y) | **Copy to System Clipboard** | Yank selection (or current movement) directly to your OS system clipboard |
+| `<leader><BS>` (Space + Backspace) | **Toggle Last Active File** | Instantly toggle back and forth between your last two active files |
+
+---
+
 ## 1. Workspace Searching (Telescope)
 Fuzzy-find files, search code text, and manage buffers across your workspace.
 
