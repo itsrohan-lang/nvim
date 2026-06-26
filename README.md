@@ -28,6 +28,7 @@ Fuzzy-find files, search code text, and manage buffers across your workspace.
 | `<leader>fg` | **Live Grep** | Search for specific text inside all files in your project |
 | `<leader>fb` | **Find Buffers** | List and fuzzy-search all currently open files |
 | `<leader>fh` | **Find Help** | Search Neovim's help documentation |
+| `<leader>?` or `<leader>sk` | **Search Keymaps** | Interactive, searchable popup of all active keyboard shortcuts |
 
 ### Navigation Inside Telescope Menu:
 * `Ctrl + j` — Move selection down
