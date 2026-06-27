@@ -45,6 +45,14 @@ cmp.setup({
   }),
 })
 
+-- Add vim-dadbod-completion specifically for sql files
+cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
+  sources = {
+    { name = "vim-dadbod-completion" },
+    { name = "buffer" },
+  },
+})
+
 -- Configure Auto-Formatting (conform.nvim)
 require("conform").setup({
   formatters_by_ft = {
