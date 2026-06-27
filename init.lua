@@ -16,6 +16,7 @@ local plugins = {
   { name = "nui.nvim", repo = "https://github.com/MunifTanjim/nui.nvim.git" },
   { name = "nvim-autopairs", repo = "https://github.com/windwp/nvim-autopairs.git" },
   { name = "telescope.nvim", repo = "https://github.com/nvim-telescope/telescope.nvim.git" },
+  { name = "toggleterm.nvim", repo = "https://github.com/akinsho/toggleterm.nvim.git" },
   { name = "nvim-treesitter", repo = "https://github.com/nvim-treesitter/nvim-treesitter.git" },
   { name = "nvim-cmp", repo = "https://github.com/hrsh7th/nvim-cmp.git" },
   { name = "cmp-nvim-lsp", repo = "https://github.com/hrsh7th/cmp-nvim-lsp.git" },
