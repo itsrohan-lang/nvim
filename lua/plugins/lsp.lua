@@ -1,23 +1,3 @@
--- Configure Mason package manager
-require("mason").setup()
-require("mason-lspconfig").setup({
-  ensure_installed = {
-    "lua_ls",
-    "ts_ls",
-    "html",
-    "cssls",
-    "pyright",
-    "jsonls",
-    "yamlls",
-    "clangd", -- C/C++
-    "gopls", -- Go
-    "rust_analyzer", -- Rust
-    "zls", -- Zig
-    "intelephense", -- PHP
-
-  },
-})
-
 -- Set up keymaps when an LSP attaches to a buffer (native Neovim 0.8+ way)
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)

@@ -24,8 +24,6 @@ local plugins = {
   { name = "LuaSnip", repo = "https://github.com/L3MON4D3/LuaSnip.git" },
   { name = "cmp_luasnip", repo = "https://github.com/saadparwaiz1/cmp_luasnip.git" },
   { name = "nvim-lspconfig", repo = "https://github.com/neovim/nvim-lspconfig.git" },
-  { name = "mason.nvim", repo = "https://github.com/williamboman/mason.nvim.git" },
-  { name = "mason-lspconfig.nvim", repo = "https://github.com/williamboman/mason-lspconfig.nvim.git" },
   { name = "lualine.nvim", repo = "https://github.com/nvim-lualine/lualine.nvim.git" },
   { name = "bufferline.nvim", repo = "https://github.com/akinsho/bufferline.nvim.git" },
   { name = "gitsigns.nvim", repo = "https://github.com/lewis6991/gitsigns.nvim.git" },
