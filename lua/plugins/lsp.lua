@@ -39,6 +39,18 @@ require("mason").setup({
   },
 })
 
+-- Configure Mason Tool Installer (automatically installs formatters/linters)
+require("mason-tool-installer").setup({
+  ensure_installed = {
+    "black",
+    "goimports",
+    "prettier",
+    "prettierd",
+    "shfmt",
+    "stylua",
+  },
+})
+
 -- Configure Mason-LSPConfig
 require("mason-lspconfig").setup({
   ensure_installed = servers,

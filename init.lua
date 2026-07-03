@@ -40,6 +40,7 @@ local plugins = {
   -- Newly added plugins:
   { name = "mason.nvim", repo = "https://github.com/williamboman/mason.nvim.git" },
   { name = "mason-lspconfig.nvim", repo = "https://github.com/williamboman/mason-lspconfig.nvim.git" },
+  { name = "mason-tool-installer.nvim", repo = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim.git" },
   { name = "flash.nvim", repo = "https://github.com/folke/flash.nvim.git" },
   { name = "indent-blankline.nvim", repo = "https://github.com/lukas-reineke/indent-blankline.nvim.git" },
   { name = "fidget.nvim", repo = "https://github.com/j-hui/fidget.nvim.git" },
