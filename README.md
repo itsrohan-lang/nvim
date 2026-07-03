@@ -89,6 +89,8 @@ This configuration incorporates keybindings and plugins that bring Helix's best 
 ## 1. Workspace Searching (Telescope)
 Fuzzy-find files, search code text, and manage buffers across your workspace.
 
+*(Note: If you open a directory like `nvim .`, Neovim will automatically launch Telescope instead of a sidebar explorer!)*
+
 | Keybind | Action | Description |
 |---|---|---|
 | `<leader>ff` or `<leader><Space>` | **Find Files** | Fuzzy-search any file in your project by name |
