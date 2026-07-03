@@ -24,16 +24,7 @@ require("dressing").setup({
 })
 
 -- Configure File Explorer (Neo-tree)
--- Set global keymaps for Neo-tree (since we are not using lazy.nvim's keys property)
-vim.keymap.set("n", "<leader>e", function()
-  require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
-end, { desc = "Explorer NeoTree (cwd)" })
-
-vim.keymap.set("n", "<leader>E", function()
-  local current_file = vim.api.nvim_buf_get_name(0)
-  local current_dir = current_file ~= "" and vim.fn.fnamemodify(current_file, ":h") or vim.uv.cwd()
-  require("neo-tree.command").execute({ toggle = true, dir = current_dir })
-end, { desc = "Explorer NeoTree (Current File)" })
+-- Set global keymaps for Neo-tree (Explorer mapped out in favor of Telescope / Helix workflow)
 
 vim.keymap.set("n", "<leader>ge", function()
   require("neo-tree.command").execute({ source = "git_status", toggle = true })

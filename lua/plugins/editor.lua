@@ -123,4 +123,19 @@ vim.g.db_ui_show_database_icon = 1
 vim.keymap.set("n", "<leader>du", "<cmd>DBUIToggle<cr>", { desc = "Toggle Database UI" })
 vim.keymap.set("n", "<leader>da", "<cmd>DBUIAddConnection<cr>", { desc = "Add DB Connection" })
 
+vim.keymap.set("n", "<leader>da", "<cmd>DBUIAddConnection<cr>", { desc = "Add DB Connection" })
 
+-- Configure nvim-surround (Helix-style mappings) v4 migration
+vim.g.nvim_surround_no_mappings = true
+require("nvim-surround").setup({})
+
+vim.keymap.set("i", "<C-g>s", "<Plug>(nvim-surround-insert)", { desc = "Add surround (insert)" })
+vim.keymap.set("i", "<C-g>S", "<Plug>(nvim-surround-insert-line)", { desc = "Add surround line (insert)" })
+vim.keymap.set("n", "ms", "<Plug>(nvim-surround-normal)", { desc = "Add surround (Helix)" })
+vim.keymap.set("n", "mss", "<Plug>(nvim-surround-normal-cur)", { desc = "Add surround current line" })
+vim.keymap.set("n", "mS", "<Plug>(nvim-surround-normal-line)", { desc = "Add surround line" })
+vim.keymap.set("n", "mSS", "<Plug>(nvim-surround-normal-cur-line)", { desc = "Add surround cur line" })
+vim.keymap.set("x", "ms", "<Plug>(nvim-surround-visual)", { desc = "Add surround (visual)" })
+vim.keymap.set("x", "mS", "<Plug>(nvim-surround-visual-line)", { desc = "Add surround line (visual)" })
+vim.keymap.set("n", "md", "<Plug>(nvim-surround-delete)", { desc = "Delete surround (Helix)" })
+vim.keymap.set("n", "mr", "<Plug>(nvim-surround-change)", { desc = "Change surround (Helix)" })

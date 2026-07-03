@@ -34,3 +34,24 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end, 50)
   end,
 })
+
+-- ==============================================
+-- Helix-style Keybinds
+-- ==============================================
+
+-- Navigation (Goto)
+vim.keymap.set({ "n", "v", "o" }, "gh", "0", { desc = "Go to line start (Helix)" })
+vim.keymap.set({ "n", "v", "o" }, "gl", "$", { desc = "Go to line end (Helix)" })
+vim.keymap.set({ "n", "v", "o" }, "ge", "G", { desc = "Go to file end (Helix)" })
+vim.keymap.set({ "n", "v", "o" }, "gs", "^", { desc = "Go to first non-whitespace char (Helix)" })
+
+-- Match pairs
+vim.keymap.set({ "n", "v", "o" }, "mm", "%", { desc = "Match pairs (Helix mm)" })
+
+-- Editing
+vim.keymap.set("n", "U", "<C-r>", { desc = "Redo (Helix)" })
+vim.keymap.set("n", "x", "V", { desc = "Select whole line (Helix)" })
+
+-- To un-select / collapse selection like Helix (;)
+vim.keymap.set("v", ";", "<Esc>", { desc = "Collapse selection (Helix)" })
+

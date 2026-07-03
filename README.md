@@ -50,6 +50,42 @@ Highly productive editing utilities and comfortable navigation helpers that redu
 
 ---
 
+## Helix-Style Editing & Navigation
+This configuration incorporates keybindings and plugins that bring Helix's best features to Neovim.
+
+### Navigation & Editing
+| Keybind | Action | Description |
+|---|---|---|
+| `gh` | **Go to line start** | Helix-style jump to start of line |
+| `gl` | **Go to line end** | Helix-style jump to end of line |
+| `ge` | **Go to file end** | Helix-style jump to end of file |
+| `gs` | **Go to first non-whitespace char** | Helix-style jump |
+| `mm` | **Match pairs** | Jump between matching brackets/parentheses |
+| `x` | **Select whole line** | Helix-style visual line selection |
+| `U` | **Redo** | Helix-style redo |
+
+### Multiple Cursors (`vim-visual-multi`)
+| Keybind | Action | Description |
+|---|---|---|
+| `Ctrl + n` | **Add Cursor / Select Next** | Select current word and add a cursor. Press again for next occurrence. |
+
+### Surround Operations (`nvim-surround`)
+| Keybind | Action | Description |
+|---|---|---|
+| `ms` | **Match Surround** | Add surroundings (e.g., `ms"` wraps word in quotes) |
+| `md` | **Match Delete** | Delete surroundings (e.g., `md"` removes quotes) |
+| `mr` | **Match Replace** | Change surroundings |
+
+### Tree-sitter Textobjects
+| Keybind | Action | Description |
+|---|---|---|
+| `Alt-o` | **Expand Selection** | Helix-style logical expansion based on syntax |
+| `Alt-i` | **Shrink Selection** | Helix-style logical shrink |
+| `mif` / `maf` | **Match Function** | Match inside/around function |
+| `mic` / `mac` | **Match Class** | Match inside/around class |
+
+---
+
 ## 1. Workspace Searching (Telescope)
 Fuzzy-find files, search code text, and manage buffers across your workspace.
 
@@ -73,9 +109,8 @@ Manage files, directories, git status, and open buffers.
 
 | Keybind | Action | Description |
 |---|---|---|
-| `<leader>e` or `<leader>fe` | **Toggle Explorer (Root)** | Opens/closes the explorer focused on your project's root directory |
-| `<leader>E` or `<leader>fE` | **Toggle Explorer (File)** | Opens/closes the explorer focused on the current file's directory |
 | `<leader>ge` | **Git Explorer** | Opens a panel showing only your modified/untracked Git files |
+| `<leader>be` | **Buffer Explorer** | Opens a panel showing all your active buffers |
 | `<leader>be` | **Buffer Explorer** | Opens a panel showing all your active buffers |
 
 ### Navigation & Management Inside Neo-tree:
