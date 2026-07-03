@@ -46,6 +46,7 @@ local plugins = {
   { name = "fidget.nvim", repo = "https://github.com/j-hui/fidget.nvim.git" },
   { name = "neoscroll.nvim", repo = "https://github.com/karb94/neoscroll.nvim.git" },
   { name = "oil.nvim", repo = "https://github.com/stevearc/oil.nvim.git" },
+  { name = "bufferline.nvim", repo = "https://github.com/akinsho/bufferline.nvim.git" },
 }
 
 local missing_plugins = {}

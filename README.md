@@ -144,7 +144,18 @@ As you type, a pop-up menu will appear. The top suggestion is also displayed dir
 | `Ctrl + e` | **Close** | Abort and close the completion menu |
 | `Enter` | **Confirm** | Insert the currently selected item |
 
+---
 
+## 5. Buffer Navigation & Tabline (bufferline.nvim)
+A visual tab bar at the top of your editor displaying all open files (buffers) with language icons and diagnostics.
+
+| Keybind | Action | Description |
+|---|---|---|
+| `Shift + h` | **Previous Buffer** | Switch to the previous open file/buffer |
+| `Shift + l` | **Next Buffer** | Switch to the next open file/buffer |
+| `<leader>bd` | **Delete Buffer** | Close/delete the current file/buffer without closing your window split |
+
+---
 
 ## 6. Git Gutter & Integration (gitsigns.nvim)
 Real-time, colored git diff indicators in the left sign column (gutter) and interactive git operations.

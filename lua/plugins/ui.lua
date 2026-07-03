@@ -130,6 +130,16 @@ require("gitsigns").setup({
   end,
 })
 
+-- Configure Tabline/Bufferline (bufferline.nvim)
+require("bufferline").setup({
+  options = {
+    diagnostics = "nvim_lsp",
+    always_show_bufferline = true,
+    show_buffer_close_icons = true,
+    show_close_icon = true,
+  },
+})
+
 -- Buffer Navigation Keymaps
 vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
