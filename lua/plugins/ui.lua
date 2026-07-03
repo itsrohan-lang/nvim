@@ -12,6 +12,15 @@ require("tokyonight").setup({
 })
 vim.cmd([[colorscheme tokyonight-storm]])
 
+-- Configure Smooth Animated Cursor (smear-cursor.nvim)
+-- This completely solves Kitty cursor trail limitations in Neovim!
+require("smear_cursor").setup({
+  stiffness = 0.8,              -- 0.1 (loose) to 1.0 (stiff)
+  trailing_stiffness = 0.5,
+  distance_stop_animating = 0.5,
+  hide_target_hack = false,
+})
+
 -- Configure Beautiful UI Prompts (dressing.nvim)
 require("dressing").setup({
   input = {

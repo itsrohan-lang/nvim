@@ -43,6 +43,7 @@ local plugins = {
   { name = "nvim-surround", repo = "https://github.com/kylechui/nvim-surround.git" },
   { name = "nvim-treesitter-textobjects", repo = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects.git" },
   { name = "obsidian.nvim", repo = "https://github.com/epwalsh/obsidian.nvim.git" },
+  { name = "smear-cursor.nvim", repo = "https://github.com/sphamba/smear-cursor.nvim.git" },
 }
 
 local missing_plugins = {}
