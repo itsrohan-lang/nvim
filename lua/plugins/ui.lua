@@ -1,3 +1,7 @@
+-- Disable built-in netrw so it doesn't show up when opening a directory
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Configure Tokyonight Colorscheme
 require("tokyonight").setup({
   transparent = true,
@@ -37,6 +41,7 @@ end, { desc = "Buffer Explorer" })
 require("neo-tree").setup({
   close_if_last_window = true,
   filesystem = {
+    hijack_netrw_behavior = "disabled", -- Disable hijacking so it doesn't open on `nvim .`
     bind_to_cwd = false,
     follow_current_file = { enabled = true },
     use_libuv_file_watcher = true,
