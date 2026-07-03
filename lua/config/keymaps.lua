@@ -4,9 +4,7 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window" })
 
--- Center cursor on vertical scroll jumps (reduces eye strain)
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down & Center" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up & Center" })
+
 
 -- Center cursor on search matches (prevents cursor from getting lost)
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next Search Match & Center" })
