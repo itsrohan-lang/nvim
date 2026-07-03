@@ -5,10 +5,10 @@ A clean, modern, and high-performance custom Neovim configuration utilizing Neov
 ## 📷 Screenshots
 
 ### Welcome Dashboard
-![Welcome Dashboard](assets/editor.png)
+![Welcome Dashboard](assets/dashboard.png)
 
 ### Code Editor & Autocomplete
-![Code Editor & Autocomplete](assets/dashboard.png)
+![Code Editor & Autocomplete](assets/editor.png)
 
 * **Leader Key:** `Space` (represented as `<leader>` below)
 
