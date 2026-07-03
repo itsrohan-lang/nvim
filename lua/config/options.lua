@@ -11,3 +11,4 @@ vim.opt.smartindent = true -- Insert indents automatically
 vim.opt.termguicolors = true -- True color support
 vim.opt.ignorecase = true -- Ignore case in search patterns
 vim.opt.smartcase = true -- Override ignorecase if search contains capitals
+vim.opt.conceallevel = 2 -- Hide markup in markdown/Obsidian for a cleaner UI

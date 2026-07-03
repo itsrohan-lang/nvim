@@ -45,6 +45,7 @@ local plugins = {
   { name = "indent-blankline.nvim", repo = "https://github.com/lukas-reineke/indent-blankline.nvim.git" },
   { name = "fidget.nvim", repo = "https://github.com/j-hui/fidget.nvim.git" },
   { name = "neoscroll.nvim", repo = "https://github.com/karb94/neoscroll.nvim.git" },
+  { name = "oil.nvim", repo = "https://github.com/stevearc/oil.nvim.git" },
 }
 
 local missing_plugins = {}
