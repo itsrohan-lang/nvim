@@ -104,7 +104,19 @@ Fuzzy-find files, search code text, and manage buffers across your workspace.
 * `Ctrl + k` — Move selection up
 * `Enter` — Open selected file
 
+---
 
+## 2. File Explorer (oil.nvim)
+Edit your filesystem like a normal Neovim buffer. Replaces heavy sidebars with a blazing fast, minimalist approach.
+
+| Keybind | Action | Description |
+|---|---|---|
+| `-` or `<leader>e` | **Open Oil** | Open the parent directory in an editable buffer |
+| `Enter` | **Open File/Dir** | Open the selected file or directory |
+| `o` | **Create File/Dir** | Create a new file (or directory if ending with `/`) by inserting a line |
+| `:w` | **Save Changes** | Apply any creations, renames, or deletions to disk |
+
+---
 
 ## 3. Language Server Protocol (LSP)
 Advanced code intelligence, diagnostics, and navigation. Runs automatically for supported languages.
