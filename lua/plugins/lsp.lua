@@ -46,11 +46,9 @@ require("mason-lspconfig").setup({
 })
 
 -- Configure and enable each server using native Neovim 0.11 APIs
-require("mason-lspconfig").setup_handlers({
-  function(server_name)
-    vim.lsp.config(server_name, {
-      capabilities = capabilities,
-    })
-    vim.lsp.enable(server_name)
-  end,
-})
+for _, server in ipairs(servers) do
+  vim.lsp.config(server, {
+    capabilities = capabilities,
+  })
+  vim.lsp.enable(server)
+end
