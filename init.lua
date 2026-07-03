@@ -10,16 +10,11 @@ require("config.keymaps")
 local pack_path = vim.fn.stdpath("data") .. "/site/pack/plugins/start"
 local plugins = {
   { name = "tokyonight.nvim", repo = "https://github.com/folke/tokyonight.nvim.git" },
-  { name = "neo-tree.nvim", repo = "https://github.com/nvim-neo-tree/neo-tree.nvim.git" },
   { name = "plenary.nvim", repo = "https://github.com/nvim-lua/plenary.nvim.git" },
   { name = "nvim-web-devicons", repo = "https://github.com/nvim-tree/nvim-web-devicons" },
-  { name = "nui.nvim", repo = "https://github.com/MunifTanjim/nui.nvim.git" },
   { name = "nvim-autopairs", repo = "https://github.com/windwp/nvim-autopairs.git" },
   { name = "telescope.nvim", repo = "https://github.com/nvim-telescope/telescope.nvim.git" },
   { name = "toggleterm.nvim", repo = "https://github.com/akinsho/toggleterm.nvim.git" },
-  { name = "vim-dadbod", repo = "https://github.com/tpope/vim-dadbod.git" },
-  { name = "vim-dadbod-ui", repo = "https://github.com/kristijanhusak/vim-dadbod-ui.git" },
-  { name = "vim-dadbod-completion", repo = "https://github.com/kristijanhusak/vim-dadbod-completion.git" },
   { name = "nvim-treesitter", repo = "https://github.com/nvim-treesitter/nvim-treesitter.git" },
   { name = "nvim-cmp", repo = "https://github.com/hrsh7th/nvim-cmp.git" },
   { name = "cmp-nvim-lsp", repo = "https://github.com/hrsh7th/cmp-nvim-lsp.git" },
@@ -29,14 +24,11 @@ local plugins = {
   { name = "cmp_luasnip", repo = "https://github.com/saadparwaiz1/cmp_luasnip.git" },
   { name = "nvim-lspconfig", repo = "https://github.com/neovim/nvim-lspconfig.git" },
   { name = "lualine.nvim", repo = "https://github.com/nvim-lualine/lualine.nvim.git" },
-  { name = "bufferline.nvim", repo = "https://github.com/akinsho/bufferline.nvim.git" },
   { name = "gitsigns.nvim", repo = "https://github.com/lewis6991/gitsigns.nvim.git" },
   { name = "which-key.nvim", repo = "https://github.com/folke/which-key.nvim.git" },
   { name = "conform.nvim", repo = "https://github.com/stevearc/conform.nvim.git" },
   { name = "trouble.nvim", repo = "https://github.com/folke/trouble.nvim.git" },
   { name = "dressing.nvim", repo = "https://github.com/stevearc/dressing.nvim.git" },
-  { name = "image.nvim", repo = "https://github.com/3rd/image.nvim.git" },
-  { name = "alpha-nvim", repo = "https://github.com/goolord/alpha-nvim.git" },
   { name = "persistence.nvim", repo = "https://github.com/folke/persistence.nvim.git" },
   { name = "harpoon", repo = "https://github.com/ThePrimeagen/harpoon.git", branch = "harpoon2" },
   { name = "vim-visual-multi", repo = "https://github.com/mg979/vim-visual-multi.git" },
@@ -44,6 +36,13 @@ local plugins = {
   { name = "nvim-treesitter-textobjects", repo = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects.git" },
   { name = "obsidian.nvim", repo = "https://github.com/epwalsh/obsidian.nvim.git" },
   { name = "smear-cursor.nvim", repo = "https://github.com/sphamba/smear-cursor.nvim.git" },
+  
+  -- Newly added plugins:
+  { name = "mason.nvim", repo = "https://github.com/williamboman/mason.nvim.git" },
+  { name = "mason-lspconfig.nvim", repo = "https://github.com/williamboman/mason-lspconfig.nvim.git" },
+  { name = "flash.nvim", repo = "https://github.com/folke/flash.nvim.git" },
+  { name = "indent-blankline.nvim", repo = "https://github.com/lukas-reineke/indent-blankline.nvim.git" },
+  { name = "fidget.nvim", repo = "https://github.com/j-hui/fidget.nvim.git" },
 }
 
 local missing_plugins = {}

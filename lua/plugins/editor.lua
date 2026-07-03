@@ -156,13 +156,17 @@ end
 
 vim.keymap.set("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", { desc = "Lazygit" })
 
--- Configure Database Explorer (vim-dadbod-ui)
-vim.g.db_ui_use_nerd_fonts = 1
-vim.g.db_ui_show_database_icon = 1
-vim.keymap.set("n", "<leader>du", "<cmd>DBUIToggle<cr>", { desc = "Toggle Database UI" })
-vim.keymap.set("n", "<leader>da", "<cmd>DBUIAddConnection<cr>", { desc = "Add DB Connection" })
+-- Configure Fast Navigation (flash.nvim)
+require("flash").setup({
+  modes = {
+    search = {
+      enabled = true,
+    },
+  },
+})
 
-vim.keymap.set("n", "<leader>da", "<cmd>DBUIAddConnection<cr>", { desc = "Add DB Connection" })
+vim.keymap.set({"n", "x", "o"}, "s", function() require("flash").jump() end, { desc = "Flash Jump" })
+vim.keymap.set({"n", "x", "o"}, "S", function() require("flash").treesitter() end, { desc = "Flash Treesitter" })
 
 -- Configure nvim-surround (Helix-style mappings) v4 migration
 vim.g.nvim_surround_no_mappings = true

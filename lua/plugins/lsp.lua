@@ -26,13 +26,31 @@ local servers = {
   "rust_analyzer",
   "zls",
   "intelephense",
-
 }
 
+-- Configure Mason
+require("mason").setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
+    },
+  },
+})
+
+-- Configure Mason-LSPConfig
+require("mason-lspconfig").setup({
+  ensure_installed = servers,
+  automatic_installation = true,
+})
+
 -- Configure and enable each server using native Neovim 0.11 APIs
-for _, server in ipairs(servers) do
-  vim.lsp.config(server, {
-    capabilities = capabilities,
-  })
-  vim.lsp.enable(server)
-end
+require("mason-lspconfig").setup_handlers({
+  function(server_name)
+    vim.lsp.config(server_name, {
+      capabilities = capabilities,
+    })
+    vim.lsp.enable(server_name)
+  end,
+})

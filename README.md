@@ -104,29 +104,7 @@ Fuzzy-find files, search code text, and manage buffers across your workspace.
 * `Ctrl + k` — Move selection up
 * `Enter` — Open selected file
 
----
 
-## 2. File Explorer (Neo-tree)
-Manage files, directories, git status, and open buffers.
-
-| Keybind | Action | Description |
-|---|---|---|
-| `<leader>ge` | **Git Explorer** | Opens a panel showing only your modified/untracked Git files |
-| `<leader>be` | **Buffer Explorer** | Opens a panel showing all your active buffers |
-| `<leader>be` | **Buffer Explorer** | Opens a panel showing all your active buffers |
-
-### Navigation & Management Inside Neo-tree:
-* `a` or `n` — **Create File/Folder:** Hover over a directory, press `a` (LazyVim default) or `n`, and enter the name in the centered floating prompt. End with `/` to create a directory (e.g., `src/`), or omit the slash to create a file (e.g., `app.js`).
-* `A` or `N` — **Create Directory:** Hover over a directory, press `A` or `N`, and enter the directory name to create it.
-* `d` — **Delete:** Delete the hovered file or directory.
-* `r` — **Rename:** Rename the hovered file or directory.
-* `y` — **Copy Name:** Copy the name of the file/folder to the system clipboard.
-* `Y` — **Copy Path:** Copy the relative path of the file/folder to the system clipboard.
-* `c` / `x` / `p` — **Copy / Cut / Paste:** Copy or cut a file, and paste it under the hovered directory.
-* `H` — **Toggle Hidden Files:** Show or hide dotfiles (e.g. `.env`) and git-ignored folders (e.g. `node_modules`).
-* `/` — **Buffer Search:** Jumps to and highlights matching text in the explorer panel without hiding other files.
-
----
 
 ## 3. Language Server Protocol (LSP)
 Advanced code intelligence, diagnostics, and navigation. Runs automatically for supported languages.
@@ -154,18 +132,7 @@ As you type, a pop-up menu will appear. The top suggestion is also displayed dir
 | `Ctrl + e` | **Close** | Abort and close the completion menu |
 | `Enter` | **Confirm** | Insert the currently selected item |
 
----
 
-## 5. Buffer Navigation & Tabline (bufferline.nvim)
-A visual tab bar at the top of your editor displaying all open files (buffers) with language icons and diagnostics.
-
-| Keybind | Action | Description |
-|---|---|---|
-| `Shift + h` | **Previous Buffer** | Switch to the previous open file/buffer |
-| `Shift + l` | **Next Buffer** | Switch to the next open file/buffer |
-| `<leader>bd` | **Delete Buffer** | Close/delete the current file/buffer without closing your window split |
-
----
 
 ## 6. Git Gutter & Integration (gitsigns.nvim)
 Real-time, colored git diff indicators in the left sign column (gutter) and interactive git operations.
@@ -235,10 +202,8 @@ A beautiful, interactive split panel at the bottom of your screen listing all sy
 ---
 
 
-## 11. Workspace Session Persistence (persistence.nvim)
+## Workspace Session Persistence (persistence.nvim)
 Automatically saves your open tabs, buffers, and window splits when you exit Neovim in a project folder, and allows you to restore them instantly upon reopening.
-
-You can also trigger a restore directly from the **Welcome Dashboard** using the `s` key!
 
 | Keybind | Action | Description |
 |---|---|---|

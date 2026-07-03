@@ -36,41 +36,14 @@ require("dressing").setup({
   },
 })
 
--- Configure File Explorer (Neo-tree)
--- Set global keymaps for Neo-tree (Explorer mapped out in favor of Telescope / Helix workflow)
-
-vim.keymap.set("n", "<leader>ge", function()
-  require("neo-tree.command").execute({ source = "git_status", toggle = true })
-end, { desc = "Git Explorer" })
-
-vim.keymap.set("n", "<leader>be", function()
-  require("neo-tree.command").execute({ source = "buffers", toggle = true })
-end, { desc = "Buffer Explorer" })
-
-require("neo-tree").setup({
-  close_if_last_window = true,
-  filesystem = {
-    hijack_netrw_behavior = "disabled", -- Disable hijacking so it doesn't open on `nvim .`
-    bind_to_cwd = false,
-    follow_current_file = { enabled = true },
-    use_libuv_file_watcher = true,
-    filtered_items = {
-      visible = true, -- show filtered items (faded) on startup
-      hide_dotfiles = true, -- classify hidden files/folders as filtered items
-      hide_gitignored = true, -- classify git-ignored files/folders as filtered items
-    },
-  },
-  window = {
-    mappings = {
-      ["<space>"] = "none", -- Disable space to prevent conflict with leader key
-      ["/"] = "none", -- Disable filtering, fallback to standard Vim search
-      ["a"] = { "add", config = { show_path = "none" } }, -- Create new file/directory (end with / for directory)
-      ["A"] = "add_directory", -- Explicitly create new directory
-      ["n"] = { "add", config = { show_path = "none" } }, -- Create new file/directory (end with / for directory)
-      ["N"] = "add_directory", -- Explicitly create new directory
-    },
-  },
+-- Configure Indent Guides (indent-blankline.nvim)
+require("ibl").setup({
+  indent = { char = "│" },
+  scope = { enabled = true, show_start = false, show_end = false },
 })
+
+-- Configure LSP Progress Spinner (fidget.nvim)
+require("fidget").setup({})
 
 -- Configure Statusline (lualine.nvim)
 require("lualine").setup({
@@ -93,28 +66,7 @@ require("lualine").setup({
   },
 })
 
--- Configure Tabline/Bufferline (bufferline.nvim)
-require("bufferline").setup({
-  options = {
-    diagnostics = "nvim_lsp",
-    always_show_bufferline = true,
-    offsets = {
-      {
-        filetype = "neo-tree",
-        text = "File Explorer",
-        text_align = "left",
-        separator = true,
-      },
-    },
-    show_buffer_close_icons = true,
-    show_close_icon = true,
-  },
-})
 
--- Buffer Navigation Keymaps
-vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
-vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
-vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete Buffer" })
 
 -- Configure Git Gutter Indicators (gitsigns.nvim)
 require("gitsigns").setup({
@@ -168,73 +120,9 @@ require("gitsigns").setup({
   end,
 })
 
--- Configure Inline Image & PDF Previews (image.nvim)
--- Loaded inside pcall to ensure Neovim boots successfully even if system dependencies (like magick) are missing
-local ok_image, image = pcall(require, "image")
-if ok_image then
-  image.setup({
-    backend = "kitty", -- Kitty/WezTerm/Ghostty graphics protocol. Automatically falls back on supported terminals.
-    integrations = {
-      markdown = {
-        enabled = true,
-        clear_in_insert_mode = true,
-        download_remote_images = true,
-        only_render_image_at_cursor = false,
-        floating_windows = false,
-      },
-      pdf = {
-        enabled = true, -- Enables PDF rendering using pdftoppm (requires poppler)
-      },
-    },
-    max_width = nil,
-    max_height = nil,
-    max_width_window_percentage = nil,
-    max_height_window_percentage = 50,
-    window_overlap_clear_enabled = false,
-    window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-    editor_only_render_when_focused = false,
-    tmux_show_only_in_active_window = false,
-    hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.pdf" },
-  })
-end
+-- Buffer Navigation Keymaps
+vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
+vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete Buffer" })
 
--- Configure Welcome Dashboard (alpha-nvim)
-local alpha = require("alpha")
-local dashboard = require("alpha.themes.dashboard")
 
--- Beautiful block ASCII header (ANSI Shadow font) matching Linkarzu's style
-dashboard.section.header.val = {
-  "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
-  "████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║",
-  "██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║",
-  "██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║",
-  "██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
-  "╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
-  "",
-  "          [ Rohan's Development Environment ]",
-}
-
--- Configured quick buttons matching our keyboard layout and Linkarzu's style
-dashboard.section.buttons.val = {
-  dashboard.button("f", "  Find File", "<cmd>Telescope find_files<CR>"),
-  dashboard.button("r", "  Recent Files", "<cmd>Telescope oldfiles<CR>"),
-  dashboard.button("g", "  Find Text", "<cmd>Telescope live_grep<CR>"),
-  dashboard.button("s", "  Restore Workspace", "<cmd>lua require('persistence').load()<CR>"),
-  dashboard.button("c", "  Configure Editor", "<cmd>Telescope find_files cwd=" .. vim.fn.stdpath("config") .. "<CR>"),
-  dashboard.button("q", "  Quit Neovim", "<cmd>qa<CR>"),
-}
-
--- Colorize buttons, headers, and footers
-dashboard.section.header.opts.hl = "AlphaHeader"
-dashboard.section.buttons.opts.hl = "AlphaButtons"
-
--- Add a footer displaying startuptime stats dynamically
-local stats = "Native boot: 66ms | 27 packages loaded"
-dashboard.section.footer.val = stats
-dashboard.section.footer.opts.hl = "AlphaFooter"
-
-vim.api.nvim_set_hl(0, "AlphaHeader", { fg = "#7aa2f7" })  -- Tokyonight Blue
-vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#bb9af7" }) -- Tokyonight Purple
-vim.api.nvim_set_hl(0, "AlphaFooter", { fg = "#565f89" })  -- Tokyonight Muted Grey
-
-alpha.setup(dashboard.opts)
