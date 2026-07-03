@@ -130,6 +130,32 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", { desc = "Toggle Terminal" })
 
+-- Configure Lazygit using toggleterm
+local Terminal = require("toggleterm.terminal").Terminal
+local lazygit = Terminal:new({
+  cmd = "lazygit",
+  dir = "git_dir",
+  direction = "float",
+  float_opts = {
+    border = "double",
+  },
+  -- function to run on opening the terminal
+  on_open = function(term)
+    vim.cmd("startinsert!")
+    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+  end,
+  -- function to run on closing the terminal
+  on_close = function(term)
+    vim.cmd("checktime")
+  end,
+})
+
+function _lazygit_toggle()
+  lazygit:toggle()
+end
+
+vim.keymap.set("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", { desc = "Lazygit" })
+
 -- Configure Database Explorer (vim-dadbod-ui)
 vim.g.db_ui_use_nerd_fonts = 1
 vim.g.db_ui_show_database_icon = 1
@@ -152,3 +178,27 @@ vim.keymap.set("x", "ms", "<Plug>(nvim-surround-visual)", { desc = "Add surround
 vim.keymap.set("x", "mS", "<Plug>(nvim-surround-visual-line)", { desc = "Add surround line (visual)" })
 vim.keymap.set("n", "md", "<Plug>(nvim-surround-delete)", { desc = "Delete surround (Helix)" })
 vim.keymap.set("n", "mr", "<Plug>(nvim-surround-change)", { desc = "Change surround (Helix)" })
+
+-- Configure Obsidian.nvim
+require("obsidian").setup({
+  workspaces = {
+    {
+      name = "personal",
+      path = "~/Documents/Obsidian", -- Default path, can be changed later
+    },
+  },
+  completion = {
+    nvim_cmp = true,
+    min_chars = 2,
+  },
+  mappings = {
+    ["gf"] = {
+      action = function() return require("obsidian").util.gf_passthrough() end,
+      opts = { noremap = false, expr = true, buffer = true },
+    },
+    ["<leader>ch"] = {
+      action = function() return require("obsidian").util.toggle_checkbox() end,
+      opts = { buffer = true, desc = "Toggle Obsidian Checkbox" },
+    },
+  },
+})

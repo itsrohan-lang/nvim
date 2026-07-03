@@ -42,6 +42,7 @@ local plugins = {
   { name = "vim-visual-multi", repo = "https://github.com/mg979/vim-visual-multi.git" },
   { name = "nvim-surround", repo = "https://github.com/kylechui/nvim-surround.git" },
   { name = "nvim-treesitter-textobjects", repo = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects.git" },
+  { name = "obsidian.nvim", repo = "https://github.com/epwalsh/obsidian.nvim.git" },
 }
 
 local missing_plugins = {}
