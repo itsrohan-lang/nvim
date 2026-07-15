@@ -260,8 +260,6 @@ Add the following to your `environment.systemPackages` (or `home.packages`):
 environment.systemPackages = with pkgs; [
   # LSPs
   lua-language-server
-  nodePackages.typescript-language-server
-  nodePackages.vscode-langservers-extracted # html, css, json
   pyright
   yaml-language-server
   clang-tools # clangd
@@ -273,7 +271,6 @@ environment.systemPackages = with pkgs; [
   # Formatters
   black
   gotools # goimports
-  nodePackages.prettier
   prettierd
   shfmt
   stylua
