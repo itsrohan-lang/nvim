@@ -248,3 +248,36 @@ Allows you to pin your 3-4 most-used files in a project and switch between them 
 | `<leader>3` | **Select File 3** | Instantly switch to the 3rd pinned file |
 | `<leader>4` | **Select File 4** | Instantly switch to the 4th pinned file |
 
+---
+
+## 12. NixOS Support (Pure Nix)
+This configuration dynamically detects if it is running on **NixOS**. Because Mason downloaded binaries are generally incompatible with NixOS due to FHS differences, the configuration will **automatically disable Mason** when deployed on a NixOS machine.
+
+To ensure your LSPs and formatters work correctly on NixOS, you must install them system-wide or via Home Manager. 
+
+Add the following to your `environment.systemPackages` (or `home.packages`):
+```nix
+environment.systemPackages = with pkgs; [
+  # LSPs
+  lua-language-server
+  nodePackages.typescript-language-server
+  nodePackages.vscode-langservers-extracted # html, css, json
+  pyright
+  yaml-language-server
+  clang-tools # clangd
+  gopls
+  rust-analyzer
+  zls
+  intelephense
+
+  # Formatters
+  black
+  gotools # goimports
+  nodePackages.prettier
+  prettierd
+  shfmt
+  stylua
+];
+```
+*(On all other operating systems like macOS and Ubuntu, Mason runs automatically and handles these installations for you!)*
+
