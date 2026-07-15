@@ -28,34 +28,48 @@ local servers = {
   "intelephense",
 }
 
--- Configure Mason
-require("mason").setup({
-  ui = {
-    icons = {
-      package_installed = "✓",
-      package_pending = "➜",
-      package_uninstalled = "✗",
+-- Detect NixOS
+local is_nixos = false
+local f = io.open("/etc/os-release", "r")
+if f then
+  local content = f:read("*a")
+  if content:match("ID=nixos") or content:match("ID=\"nixos\"") then
+    is_nixos = true
+  end
+  f:close()
+end
+
+-- Only run Mason if we are NOT on NixOS (Pure Nix installs LSPs globally)
+if not is_nixos then
+  -- Configure Mason
+  require("mason").setup({
+    ui = {
+      icons = {
+        package_installed = "✓",
+        package_pending = "➜",
+        package_uninstalled = "✗",
+      },
     },
-  },
-})
+  })
 
--- Configure Mason Tool Installer (automatically installs formatters/linters)
-require("mason-tool-installer").setup({
-  ensure_installed = {
-    "black",
-    "goimports",
-    "prettier",
-    "prettierd",
-    "shfmt",
-    "stylua",
-  },
-})
+  -- Configure Mason Tool Installer (automatically installs formatters/linters)
+  require("mason-tool-installer").setup({
+    ensure_installed = {
+      "black",
+      "goimports",
+      "prettier",
+      "prettierd",
+      "shfmt",
+      "stylua",
+    },
+  })
 
--- Configure Mason-LSPConfig
-require("mason-lspconfig").setup({
-  ensure_installed = servers,
-  automatic_installation = true,
-})
+  -- Configure Mason-LSPConfig
+  require("mason-lspconfig").setup({
+    ensure_installed = servers,
+    automatic_installation = true,
+  })
+end
 
 -- Configure and enable each server using native Neovim 0.11 APIs
 for _, server in ipairs(servers) do
