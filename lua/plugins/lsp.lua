@@ -53,21 +53,15 @@ if not is_nixos then
   })
 
   -- Configure Mason Tool Installer (automatically installs formatters/linters)
+  -- Left empty for minimalism. Use :MasonInstall <tool> when you need it!
   require("mason-tool-installer").setup({
-    ensure_installed = {
-      "black",
-      "goimports",
-      "prettier",
-      "prettierd",
-      "shfmt",
-      "stylua",
-    },
+    ensure_installed = {},
   })
 
   -- Configure Mason-LSPConfig
   require("mason-lspconfig").setup({
-    ensure_installed = servers,
-    automatic_installation = true,
+    ensure_installed = {},
+    automatic_installation = false, -- Disable auto-install to save gigabytes of disk space
   })
 end
 
