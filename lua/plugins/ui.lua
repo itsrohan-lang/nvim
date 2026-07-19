@@ -2,15 +2,25 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Configure Tokyonight Colorscheme
-require("tokyonight").setup({
-  transparent = true,
-  styles = {
-    sidebars = "transparent",
-    floats = "transparent",
+-- Configure Catppuccin Colorscheme (Matches Ghostty Mocha)
+require("catppuccin").setup({
+  flavour = "mocha", -- latte, frappe, macchiato, mocha
+  transparent_background = true, -- Inherits Ghostty's black background and glass blur
+  term_colors = true,
+  integrations = {
+    cmp = true,
+    gitsigns = true,
+    nvimtree = false,
+    treesitter = true,
+    mason = true,
+    telescope = {
+      enabled = true,
+      style = "nvchad",
+    },
+    which_key = true,
   },
 })
-vim.cmd([[colorscheme tokyonight-storm]])
+vim.cmd.colorscheme("catppuccin")
 
 -- Configure Smooth Animated Cursor (smear-cursor.nvim)
 -- This completely solves Kitty cursor trail limitations in Neovim!
