@@ -68,7 +68,7 @@ require("fidget").setup({})
 -- Configure Statusline (lualine.nvim)
 require("lualine").setup({
   options = {
-    theme = "tokyonight",
+    theme = "catppuccin",
     globalstatus = true,
     component_separators = { left = "│", right = "│" },
     section_separators = { left = "", right = "" },
