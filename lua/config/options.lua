@@ -12,3 +12,4 @@ vim.opt.termguicolors = true -- True color support
 vim.opt.ignorecase = true -- Ignore case in search patterns
 vim.opt.smartcase = true -- Override ignorecase if search contains capitals
 vim.opt.conceallevel = 2 -- Hide markup in markdown/Obsidian for a cleaner UI
+vim.opt.guifont = "Maple Mono:h14" -- GUI font (for Neovide / GUI clients) matching terminal Maple Mono font theme

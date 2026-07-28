@@ -37,9 +37,10 @@ winget install sharkdp.fd
 winget install MSYS2.MSYS2 # Or ensure you have a C compiler like gcc/clang in your PATH
 ```
 
-#### 🎨 Recommended: Nerd Font
-To display beautiful file icons in your statusline, tab bar, and file explorer, you must use a **Nerd Font** in your terminal emulator (e.g., *JetBrainsMono Nerd Font*, *FiraCode Nerd Font*, or *Hack Nerd Font*).
-* Download from: [Nerd Fonts Releases](https://www.nerdfonts.com/font-downloads)
+#### 🎨 Recommended Font & Typography: Maple Mono
+This configuration is tuned for **Maple Mono / Maple Mono NF** (`family="Maple Mono"`). 
+Catppuccin is configured to trigger Maple Mono's signature cursive italics and ligatures for comments, keywords, functions, and conditionals.
+* Download from: [Maple Mono GitHub Releases](https://github.com/subframe7536/maple-font) or [Nerd Fonts Releases](https://www.nerdfonts.com/font-downloads)
 
 ---
 

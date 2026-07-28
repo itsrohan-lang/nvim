@@ -2,11 +2,25 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Configure Catppuccin Colorscheme (Matches Ghostty Mocha)
+-- Configure Catppuccin Colorscheme (Matches Ghostty Mocha & Maple Mono typography)
 require("catppuccin").setup({
   flavour = "mocha", -- latte, frappe, macchiato, mocha
   transparent_background = true, -- Inherits Ghostty's black background and glass blur
   term_colors = true,
+  styles = {
+    comments = { "italic" },     -- Uses Maple Mono cursive italic
+    keywords = { "italic" },     -- Uses Maple Mono cursive italic
+    functions = { "italic" },    -- Uses Maple Mono cursive italic
+    conditionals = { "italic" }, -- Uses Maple Mono cursive italic
+    loops = {},
+    strings = {},
+    variables = {},
+    numbers = {},
+    booleans = {},
+    properties = {},
+    types = {},
+    operators = {},
+  },
   integrations = {
     cmp = true,
     gitsigns = true,
