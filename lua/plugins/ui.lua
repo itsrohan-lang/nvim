@@ -79,24 +79,120 @@ require("ibl").setup({
 -- Configure LSP Progress Spinner (fidget.nvim)
 require("fidget").setup({})
 
--- Configure Statusline (lualine.nvim)
+-- Configure Statusline (lualine.nvim - Ultra-Colorful Glass Pills)
+local mocha = require("catppuccin.palettes").get_palette("mocha")
+
+local custom_catppuccin_theme = {
+  normal = {
+    a = { bg = mocha.blue, fg = mocha.crust, gui = "bold" },
+    b = { bg = mocha.surface0, fg = mocha.mauve, gui = "bold" },
+    c = { bg = "NONE", fg = mocha.text },
+  },
+  insert = {
+    a = { bg = mocha.green, fg = mocha.crust, gui = "bold" },
+  },
+  visual = {
+    a = { bg = mocha.mauve, fg = mocha.crust, gui = "bold" },
+  },
+  replace = {
+    a = { bg = mocha.red, fg = mocha.crust, gui = "bold" },
+  },
+  command = {
+    a = { bg = mocha.yellow, fg = mocha.crust, gui = "bold" },
+  },
+  inactive = {
+    a = { bg = mocha.surface0, fg = mocha.subtext0 },
+    b = { bg = mocha.surface0, fg = mocha.subtext0 },
+    c = { bg = "NONE", fg = mocha.subtext0 },
+  },
+}
+
 require("lualine").setup({
   options = {
-    theme = "auto", -- Auto will perfectly match whatever colorscheme (Catppuccin) is currently active
+    theme = custom_catppuccin_theme,
     globalstatus = true,
-    component_separators = { left = "│", right = "│" },
-    section_separators = { left = "", right = "" },
+    component_separators = "",
+    section_separators = { left = "", right = "" },
     disabled_filetypes = {
       statusline = { "dashboard", "alpha", "starter" },
     },
   },
   sections = {
-    lualine_a = { { "mode", separator = { left = "", right = "" }, right_padding = 2 } },
-    lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { { "filename", path = 1 } },
-    lualine_x = { "encoding", "fileformat", "filetype" },
-    lualine_y = { "progress" },
-    lualine_z = { { "location", separator = { left = "", right = "" }, left_padding = 2 } },
+    lualine_a = {
+      {
+        "mode",
+        icon = "",
+        separator = { left = "", right = "" },
+      },
+    },
+    lualine_b = {
+      {
+        "branch",
+        icon = "",
+        color = { bg = mocha.surface0, fg = mocha.pink, gui = "bold" },
+        separator = { left = "", right = "" },
+      },
+      {
+        "diff",
+        symbols = { added = " ", modified = "󰝤 ", removed = " " },
+      },
+    },
+    lualine_c = {
+      {
+        "filename",
+        file_status = true,
+        path = 1,
+        symbols = { modified = " 󰏫", readonly = " 󰌾", unnamed = " [No Name]" },
+        color = { fg = mocha.peach, gui = "bold" },
+      },
+      {
+        "diagnostics",
+        sources = { "nvim_diagnostic" },
+        symbols = { error = " ", warn = " ", info = " ", hint = "󰌵 " },
+      },
+    },
+    lualine_x = {
+      {
+        function()
+          local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
+          if #buf_clients == 0 then
+            return "󰅛 No LSP"
+          end
+          local names = {}
+          for _, client in ipairs(buf_clients) do
+            table.insert(names, client.name)
+          end
+          return "  " .. table.concat(names, ", ")
+        end,
+        color = { bg = mocha.surface0, fg = mocha.teal, gui = "bold" },
+        separator = { left = "", right = "" },
+      },
+      {
+        "filetype",
+        icon_only = false,
+        color = { bg = mocha.surface0, fg = mocha.sapphire, gui = "bold" },
+        separator = { left = "", right = "" },
+      },
+      {
+        "encoding",
+        color = { fg = mocha.subtext0, gui = "bold" },
+      },
+    },
+    lualine_y = {
+      {
+        "progress",
+        color = { bg = mocha.surface0, fg = mocha.green, gui = "bold" },
+        separator = { left = "", right = "" },
+      },
+    },
+    lualine_z = {
+      {
+        "location",
+        icon = "",
+        color = { bg = mocha.lavender, fg = mocha.crust, gui = "bold" },
+        separator = { left = "", right = "" },
+      },
+    },
   },
 })
 
