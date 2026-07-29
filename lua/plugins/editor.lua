@@ -47,13 +47,61 @@ require("oil").setup({
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open Parent Directory (Oil)" })
 vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open File Explorer (Oil)" })
 
+local actions = require("telescope.actions")
+
 require("telescope").setup({
   defaults = {
+    prompt_prefix = "   ",
+    selection_caret = " ❯ ",
+    entry_prefix = "   ",
+    initial_mode = "insert",
+    selection_strategy = "reset",
+    sorting_strategy = "ascending",
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        prompt_position = "top",
+        preview_width = 0.55,
+        results_width = 0.8,
+      },
+      vertical = {
+        mirror = false,
+      },
+      width = 0.87,
+      height = 0.80,
+      preview_cutoff = 120,
+    },
+    path_display = { "truncate" },
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--hidden",
+      "--glob",
+      "!**/.git/*",
+    },
     mappings = {
       i = {
-        ["<C-j>"] = "move_selection_next",
-        ["<C-k>"] = "move_selection_previous",
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-n>"] = actions.move_selection_next,
+        ["<C-p>"] = actions.move_selection_previous,
+        ["<C-c>"] = actions.close,
+        ["<Esc>"] = actions.close,
       },
+      n = {
+        ["<Esc>"] = actions.close,
+        ["q"] = actions.close,
+      },
+    },
+  },
+  pickers = {
+    find_files = {
+      find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
     },
   },
 })

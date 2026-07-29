@@ -2,39 +2,26 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Configure Catppuccin Colorscheme (Matches Ghostty Mocha & Maple Mono typography)
-require("catppuccin").setup({
-  flavour = "mocha", -- latte, frappe, macchiato, mocha
-  transparent_background = true, -- Inherits Ghostty's black background and glass blur
+-- Configure Atom One Dark Colorscheme (Matches Kitty & Starship Atom One Dark theme!)
+require("onedark").setup({
+  style = "dark", -- Authentic Atom One Dark style
+  transparent = true, -- Transparent glassmorphism matching Kitty background
   term_colors = true,
-  styles = {
-    comments = { "italic" },     -- Uses Maple Mono cursive italic
-    keywords = { "italic" },     -- Uses Maple Mono cursive italic
-    functions = { "italic" },    -- Uses Maple Mono cursive italic
-    conditionals = { "italic" }, -- Uses Maple Mono cursive italic
-    loops = {},
-    strings = {},
-    variables = {},
-    numbers = {},
-    booleans = {},
-    properties = {},
-    types = {},
-    operators = {},
+  ending_tildes = false,
+  cmp_itemkind_reverse = false,
+  code_style = {
+    comments = "italic",
+    keywords = "italic",
+    functions = "italic",
+    conditionals = "italic",
+    strings = "none",
+    variables = "none",
   },
-  integrations = {
-    cmp = true,
-    gitsigns = true,
-    nvimtree = false,
-    treesitter = true,
-    mason = true,
-    telescope = {
-      enabled = true,
-      style = "nvchad",
-    },
-    which_key = true,
+  lualine = {
+    transparent = true,
   },
 })
-vim.cmd.colorscheme("catppuccin")
+require("onedark").load()
 
 -- Configure Smooth Animated Cursor (smear-cursor.nvim)
 -- This completely solves Kitty cursor trail limitations in Neovim!
@@ -79,236 +66,109 @@ require("ibl").setup({
 -- Configure LSP Progress Spinner (fidget.nvim)
 require("fidget").setup({})
 
--- Configure Statusline (GitHub Trending: "Evil Lualine" - Transparent, Dynamic & Minimal)
-local mocha = require("catppuccin.palettes").get_palette("mocha")
-
-local conditions = {
-  buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
-  end,
-  hide_in_width = function()
-    return vim.fn.winwidth(0) > 80
-  end,
+-- Configure Statusline (Matches Kitty & Starship "Atom One Dark" Theme!)
+local one_dark = {
+  bg       = "#21252b",
+  fg       = "#abb2bf",
+  red      = "#e06c75",
+  green    = "#98c379",
+  yellow   = "#e5c07b",
+  blue     = "#61afef",
+  purple   = "#c678dd",
+  cyan     = "#56b6c2",
+  orange   = "#d19a66",
+  dark_bg  = "#1e2227",
+  gray     = "#3e4451",
+  subtext  = "#5c6370",
 }
 
-local evil_config = {
+local atom_one_dark_theme = {
+  normal = {
+    a = { bg = one_dark.blue, fg = one_dark.dark_bg, gui = "bold" },
+    b = { bg = one_dark.gray, fg = one_dark.fg },
+    c = { bg = one_dark.bg, fg = one_dark.subtext },
+  },
+  insert = {
+    a = { bg = one_dark.green, fg = one_dark.dark_bg, gui = "bold" },
+  },
+  visual = {
+    a = { bg = one_dark.purple, fg = one_dark.dark_bg, gui = "bold" },
+  },
+  replace = {
+    a = { bg = one_dark.red, fg = one_dark.dark_bg, gui = "bold" },
+  },
+  command = {
+    a = { bg = one_dark.yellow, fg = one_dark.dark_bg, gui = "bold" },
+  },
+  inactive = {
+    a = { bg = one_dark.dark_bg, fg = one_dark.subtext },
+    b = { bg = one_dark.dark_bg, fg = one_dark.subtext },
+    c = { bg = one_dark.dark_bg, fg = one_dark.subtext },
+  },
+}
+
+require("lualine").setup({
   options = {
-    component_separators = "",
-    section_separators = "",
-    theme = {
-      normal = { c = { fg = mocha.text, bg = "NONE" } },
-      inactive = { c = { fg = mocha.subtext0, bg = "NONE" } },
-    },
+    theme = atom_one_dark_theme,
     globalstatus = true,
-    disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
+    component_separators = { left = "│", right = "│" },
+    section_separators = { left = "", right = "" },
+    disabled_filetypes = {
+      statusline = { "dashboard", "alpha", "starter" },
+    },
   },
   sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_y = {},
-    lualine_z = {},
-    lualine_c = {},
-    lualine_x = {},
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_y = {},
-    lualine_z = {},
-    lualine_c = {},
-    lualine_x = {},
-  },
-}
-
-local function ins_left(component)
-  table.insert(evil_config.sections.lualine_c, component)
-end
-
-local function ins_right(component)
-  table.insert(evil_config.sections.lualine_x, component)
-end
-
--- 1. Dynamic Mode Pill Indicator
-ins_left({
-  function()
-    return "▊"
-  end,
-  color = function()
-    local mode_color = {
-      n = mocha.blue,
-      i = mocha.green,
-      v = mocha.mauve,
-      [" "] = mocha.mauve,
-      V = mocha.mauve,
-      c = mocha.yellow,
-      no = mocha.red,
-      s = mocha.orange,
-      S = mocha.orange,
-      [" "] = mocha.orange,
-      ic = mocha.yellow,
-      R = mocha.red,
-      Rv = mocha.red,
-      cv = mocha.red,
-      ce = mocha.red,
-      r = mocha.teal,
-      rm = mocha.teal,
-      ["r?"] = mocha.teal,
-      ["!"] = mocha.red,
-      t = mocha.red,
-    }
-    return { fg = mode_color[vim.fn.mode()] }
-  end,
-  padding = { left = 0, right = 1 },
-})
-
--- 2. Mode Name Text
-ins_left({
-  function()
-    return vim.fn.mode():upper()
-  end,
-  color = function()
-    local mode_color = {
-      n = mocha.blue,
-      i = mocha.green,
-      v = mocha.mauve,
-      [" "] = mocha.mauve,
-      V = mocha.mauve,
-      c = mocha.yellow,
-      no = mocha.red,
-      s = mocha.orange,
-      S = mocha.orange,
-      [" "] = mocha.orange,
-      ic = mocha.yellow,
-      R = mocha.red,
-      Rv = mocha.red,
-      cv = mocha.red,
-      ce = mocha.red,
-      r = mocha.teal,
-      rm = mocha.teal,
-      ["r?"] = mocha.teal,
-      ["!"] = mocha.red,
-      t = mocha.red,
-    }
-    return { fg = mode_color[vim.fn.mode()], gui = "bold" }
-  end,
-  padding = { right = 1 },
-})
-
--- 3. File Size
-ins_left({
-  "filesize",
-  cond = conditions.buffer_not_empty,
-  color = { fg = mocha.subtext0 },
-})
-
--- 4. File Name
-ins_left({
-  "filename",
-  cond = conditions.buffer_not_empty,
-  color = { fg = mocha.peach, gui = "bold" },
-  symbols = { modified = " ●", readonly = " 🔒", unnamed = "[No Name]" },
-})
-
--- 5. Location & Progress
-ins_left({ "location", color = { fg = mocha.subtext1 } })
-ins_left({ "progress", color = { fg = mocha.subtext0 } })
-
--- 6. Diagnostics
-ins_left({
-  "diagnostics",
-  sources = { "nvim_diagnostic" },
-  symbols = { error = " ", warn = " ", info = " ", hint = "󰌵 " },
-  diagnostics_color = {
-    error = { fg = mocha.red },
-    warn = { fg = mocha.yellow },
-    info = { fg = mocha.sky },
-    hint = { fg = mocha.teal },
+    lualine_a = { { "mode", icon = "" } },
+    lualine_b = {
+      { "branch", icon = "", color = { fg = one_dark.purple, gui = "bold" } },
+      {
+        "diff",
+        diff_color = {
+          added = { fg = one_dark.green },
+          modified = { fg = one_dark.yellow },
+          removed = { fg = one_dark.red },
+        },
+      },
+      {
+        "diagnostics",
+        sources = { "nvim_diagnostic" },
+        symbols = { error = " ", warn = " ", info = " ", hint = "󰌵 " },
+        diagnostics_color = {
+          error = { fg = one_dark.red },
+          warn = { fg = one_dark.yellow },
+          info = { fg = one_dark.blue },
+          hint = { fg = one_dark.cyan },
+        },
+      },
+    },
+    lualine_c = { { "filename", path = 1, color = { fg = one_dark.fg, gui = "bold" } } },
+    lualine_x = {
+      {
+        function()
+          local clients = vim.lsp.get_clients({ bufnr = 0 })
+          if #clients == 0 then return "" end
+          local names = {}
+          for _, c in ipairs(clients) do table.insert(names, c.name) end
+          return " " .. table.concat(names, ", ")
+        end,
+        color = { fg = one_dark.cyan, gui = "bold" },
+      },
+      { "filetype", color = { fg = one_dark.orange } },
+    },
+    lualine_y = { { "progress", color = { fg = one_dark.yellow } } },
+    lualine_z = { { "location", icon = "", color = { bg = one_dark.blue, fg = one_dark.dark_bg, gui = "bold" } } },
   },
 })
 
--- Spacer (Pushes following items to the right)
-ins_left({
-  function()
-    return "%="
-  end,
-})
-
--- 7. Active LSP Indicator
-ins_left({
-  function()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
-    if next(clients) == nil then
-      return "󰅛 No LSP"
-    end
-    local names = {}
-    for _, client in ipairs(clients) do
-      table.insert(names, client.name)
-    end
-    return "  " .. table.concat(names, ", ")
-  end,
-  color = { fg = mocha.teal, gui = "bold" },
-})
-
--- 8. Filetype
-ins_right({
-  "filetype",
-  icon_only = false,
-  color = { fg = mocha.subtext0 },
-})
-
--- 9. Git Branch
-ins_right({
-  "branch",
-  icon = "",
-  color = { fg = mocha.lavender, gui = "bold" },
-})
-
--- 10. Git Diff
-ins_right({
-  "diff",
-  symbols = { added = " ", modified = "󰝤 ", removed = " " },
-  diff_color = {
-    added = { fg = mocha.green },
-    modified = { fg = mocha.orange },
-    removed = { fg = mocha.red },
-  },
-  cond = conditions.hide_in_width,
-})
-
--- 11. Right Dynamic Mode Bar
-ins_right({
-  function()
-    return "▊"
-  end,
-  color = function()
-    local mode_color = {
-      n = mocha.blue,
-      i = mocha.green,
-      v = mocha.mauve,
-      [" "] = mocha.mauve,
-      V = mocha.mauve,
-      c = mocha.yellow,
-      no = mocha.red,
-      s = mocha.orange,
-      S = mocha.orange,
-      [" "] = mocha.orange,
-      ic = mocha.yellow,
-      R = mocha.red,
-      Rv = mocha.red,
-      cv = mocha.red,
-      ce = mocha.red,
-      r = mocha.teal,
-      rm = mocha.teal,
-      ["r?"] = mocha.teal,
-      ["!"] = mocha.red,
-      t = mocha.red,
-    }
-    return { fg = mode_color[vim.fn.mode()] }
-  end,
-  padding = { left = 1 },
-})
-
-require("lualine").setup(evil_config)
+-- Configure Atom One Dark Telescope Highlight Groups
+vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = one_dark.gray, bg = "NONE" })
+vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = one_dark.blue, bg = "NONE" })
+vim.api.nvim_set_hl(0, "TelescopePromptTitle", { fg = one_dark.dark_bg, bg = one_dark.blue, bold = true })
+vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { fg = one_dark.dark_bg, bg = one_dark.purple, bold = true })
+vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = one_dark.dark_bg, bg = one_dark.green, bold = true })
+vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { fg = one_dark.cyan, bold = true })
+vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = one_dark.gray, fg = one_dark.white, bold = true })
+vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = one_dark.blue, bold = true })
 
 
 

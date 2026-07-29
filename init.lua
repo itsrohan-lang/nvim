@@ -9,7 +9,7 @@ require("config.keymaps")
 -- 3. Automatic Bootstrap of Native Plugins (for new systems)
 local pack_path = vim.fn.stdpath("data") .. "/site/pack/plugins/start"
 local plugins = {
-  { name = "catppuccin", repo = "https://github.com/catppuccin/nvim.git" },
+  { name = "onedark.nvim", repo = "https://github.com/navarasu/onedark.nvim.git" },
   { name = "plenary.nvim", repo = "https://github.com/nvim-lua/plenary.nvim.git" },
   { name = "nvim-web-devicons", repo = "https://github.com/nvim-tree/nvim-web-devicons" },
   { name = "nvim-autopairs", repo = "https://github.com/windwp/nvim-autopairs.git" },
