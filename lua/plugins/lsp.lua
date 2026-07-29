@@ -28,6 +28,22 @@ local servers = {
   "intelephense",
 }
 
+-- Mapping of server names to their CLI command names
+local server_executables = {
+  lua_ls = "lua-language-server",
+  ts_ls = "typescript-language-server",
+  html = "vscode-html-language-server",
+  cssls = "vscode-css-language-server",
+  pyright = "pyright-langserver",
+  jsonls = "vscode-json-language-server",
+  yamlls = "yaml-language-server",
+  clangd = "clangd",
+  gopls = "gopls",
+  rust_analyzer = "rust-analyzer",
+  zls = "zls",
+  intelephense = "intelephense",
+}
+
 -- Detect NixOS
 local is_nixos = false
 local f = io.open("/etc/os-release", "r")
@@ -66,9 +82,13 @@ if not is_nixos then
 end
 
 -- Configure and enable each server using native Neovim 0.11 APIs
+-- Only enable servers whose CLI command is actually installed to prevent spawn errors
 for _, server in ipairs(servers) do
   vim.lsp.config(server, {
     capabilities = capabilities,
   })
-  vim.lsp.enable(server)
+  local exec = server_executables[server]
+  if not exec or vim.fn.executable(exec) == 1 then
+    vim.lsp.enable(server)
+  end
 end
