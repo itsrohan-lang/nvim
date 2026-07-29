@@ -79,13 +79,13 @@ require("ibl").setup({
 -- Configure LSP Progress Spinner (fidget.nvim)
 require("fidget").setup({})
 
--- Configure Statusline (lualine.nvim - Ultra-Colorful Glass Pills)
+-- Configure Statusline (lualine.nvim - High-Contrast Solid Pills for Transparent Terminals)
 local mocha = require("catppuccin.palettes").get_palette("mocha")
 
 local custom_catppuccin_theme = {
   normal = {
     a = { bg = mocha.blue, fg = mocha.crust, gui = "bold" },
-    b = { bg = mocha.surface0, fg = mocha.mauve, gui = "bold" },
+    b = { bg = mocha.mantle, fg = mocha.text, gui = "bold" },
     c = { bg = "NONE", fg = mocha.text },
   },
   insert = {
@@ -101,8 +101,8 @@ local custom_catppuccin_theme = {
     a = { bg = mocha.yellow, fg = mocha.crust, gui = "bold" },
   },
   inactive = {
-    a = { bg = mocha.surface0, fg = mocha.subtext0 },
-    b = { bg = mocha.surface0, fg = mocha.subtext0 },
+    a = { bg = mocha.mantle, fg = mocha.subtext0 },
+    b = { bg = mocha.mantle, fg = mocha.subtext0 },
     c = { bg = "NONE", fg = mocha.subtext0 },
   },
 }
@@ -129,12 +129,13 @@ require("lualine").setup({
       {
         "branch",
         icon = "",
-        color = { bg = mocha.surface0, fg = mocha.pink, gui = "bold" },
+        color = { bg = mocha.pink, fg = mocha.crust, gui = "bold" },
         separator = { left = "", right = "" },
       },
       {
         "diff",
         symbols = { added = " ", modified = "󰝤 ", removed = " " },
+        colored = true,
       },
     },
     lualine_c = {
@@ -143,7 +144,8 @@ require("lualine").setup({
         file_status = true,
         path = 1,
         symbols = { modified = " 󰏫", readonly = " 󰌾", unnamed = " [No Name]" },
-        color = { fg = mocha.peach, gui = "bold" },
+        color = { bg = mocha.mantle, fg = mocha.peach, gui = "bold" },
+        separator = { left = "", right = "" },
       },
       {
         "diagnostics",
@@ -164,24 +166,25 @@ require("lualine").setup({
           end
           return "  " .. table.concat(names, ", ")
         end,
-        color = { bg = mocha.surface0, fg = mocha.teal, gui = "bold" },
+        color = { bg = mocha.teal, fg = mocha.crust, gui = "bold" },
         separator = { left = "", right = "" },
       },
       {
         "filetype",
         icon_only = false,
-        color = { bg = mocha.surface0, fg = mocha.sapphire, gui = "bold" },
+        color = { bg = mocha.sapphire, fg = mocha.crust, gui = "bold" },
         separator = { left = "", right = "" },
       },
       {
         "encoding",
-        color = { fg = mocha.subtext0, gui = "bold" },
+        color = { bg = mocha.mantle, fg = mocha.subtext1, gui = "bold" },
+        separator = { left = "", right = "" },
       },
     },
     lualine_y = {
       {
         "progress",
-        color = { bg = mocha.surface0, fg = mocha.green, gui = "bold" },
+        color = { bg = mocha.green, fg = mocha.crust, gui = "bold" },
         separator = { left = "", right = "" },
       },
     },
