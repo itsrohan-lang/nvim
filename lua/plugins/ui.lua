@@ -79,14 +79,14 @@ require("ibl").setup({
 -- Configure LSP Progress Spinner (fidget.nvim)
 require("fidget").setup({})
 
--- Configure Statusline (lualine.nvim - High-Contrast Solid Pills for Transparent Terminals)
+-- Configure Statusline (lualine.nvim - Minimal, Sleek & Modern)
 local mocha = require("catppuccin.palettes").get_palette("mocha")
 
-local custom_catppuccin_theme = {
+local minimal_theme = {
   normal = {
     a = { bg = mocha.blue, fg = mocha.crust, gui = "bold" },
-    b = { bg = mocha.mantle, fg = mocha.text, gui = "bold" },
-    c = { bg = "NONE", fg = mocha.text },
+    b = { bg = mocha.mantle, fg = mocha.text },
+    c = { bg = mocha.mantle, fg = mocha.subtext1 },
   },
   insert = {
     a = { bg = mocha.green, fg = mocha.crust, gui = "bold" },
@@ -101,17 +101,17 @@ local custom_catppuccin_theme = {
     a = { bg = mocha.yellow, fg = mocha.crust, gui = "bold" },
   },
   inactive = {
-    a = { bg = mocha.mantle, fg = mocha.subtext0 },
-    b = { bg = mocha.mantle, fg = mocha.subtext0 },
-    c = { bg = "NONE", fg = mocha.subtext0 },
+    a = { bg = mocha.mantle, fg = mocha.overlay0 },
+    b = { bg = mocha.mantle, fg = mocha.overlay0 },
+    c = { bg = mocha.mantle, fg = mocha.overlay0 },
   },
 }
 
 require("lualine").setup({
   options = {
-    theme = custom_catppuccin_theme,
+    theme = minimal_theme,
     globalstatus = true,
-    component_separators = "",
+    component_separators = { left = "│", right = "│" },
     section_separators = { left = "", right = "" },
     disabled_filetypes = {
       statusline = { "dashboard", "alpha", "starter" },
@@ -121,7 +121,6 @@ require("lualine").setup({
     lualine_a = {
       {
         "mode",
-        icon = "",
         separator = { left = "", right = "" },
       },
     },
@@ -129,13 +128,11 @@ require("lualine").setup({
       {
         "branch",
         icon = "",
-        color = { bg = mocha.pink, fg = mocha.crust, gui = "bold" },
-        separator = { left = "", right = "" },
+        color = { fg = mocha.lavender, gui = "bold" },
       },
       {
         "diff",
-        symbols = { added = " ", modified = "󰝤 ", removed = " " },
-        colored = true,
+        symbols = { added = "+", modified = "~", removed = "-" },
       },
     },
     lualine_c = {
@@ -143,9 +140,8 @@ require("lualine").setup({
         "filename",
         file_status = true,
         path = 1,
-        symbols = { modified = " 󰏫", readonly = " 󰌾", unnamed = " [No Name]" },
-        color = { bg = mocha.mantle, fg = mocha.peach, gui = "bold" },
-        separator = { left = "", right = "" },
+        symbols = { modified = " ●", readonly = " 🔒", unnamed = "[No Name]" },
+        color = { fg = mocha.text, gui = "bold" },
       },
       {
         "diagnostics",
@@ -158,41 +154,31 @@ require("lualine").setup({
         function()
           local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
           if #buf_clients == 0 then
-            return "󰅛 No LSP"
+            return ""
           end
           local names = {}
           for _, client in ipairs(buf_clients) do
             table.insert(names, client.name)
           end
-          return "  " .. table.concat(names, ", ")
+          return " " .. table.concat(names, ", ")
         end,
-        color = { bg = mocha.teal, fg = mocha.crust, gui = "bold" },
-        separator = { left = "", right = "" },
+        color = { fg = mocha.teal },
       },
       {
         "filetype",
         icon_only = false,
-        color = { bg = mocha.sapphire, fg = mocha.crust, gui = "bold" },
-        separator = { left = "", right = "" },
-      },
-      {
-        "encoding",
-        color = { bg = mocha.mantle, fg = mocha.subtext1, gui = "bold" },
-        separator = { left = "", right = "" },
+        color = { fg = mocha.subtext0 },
       },
     },
     lualine_y = {
       {
         "progress",
-        color = { bg = mocha.green, fg = mocha.crust, gui = "bold" },
-        separator = { left = "", right = "" },
+        color = { fg = mocha.subtext1 },
       },
     },
     lualine_z = {
       {
         "location",
-        icon = "",
-        color = { bg = mocha.lavender, fg = mocha.crust, gui = "bold" },
         separator = { left = "", right = "" },
       },
     },
