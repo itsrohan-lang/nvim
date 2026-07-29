@@ -79,111 +79,236 @@ require("ibl").setup({
 -- Configure LSP Progress Spinner (fidget.nvim)
 require("fidget").setup({})
 
--- Configure Statusline (lualine.nvim - Minimal, Sleek & Modern)
+-- Configure Statusline (GitHub Trending: "Evil Lualine" - Transparent, Dynamic & Minimal)
 local mocha = require("catppuccin.palettes").get_palette("mocha")
 
-local minimal_theme = {
-  normal = {
-    a = { bg = mocha.blue, fg = mocha.crust, gui = "bold" },
-    b = { bg = mocha.mantle, fg = mocha.text },
-    c = { bg = mocha.mantle, fg = mocha.subtext1 },
+local conditions = {
+  buffer_not_empty = function()
+    return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+  end,
+  hide_in_width = function()
+    return vim.fn.winwidth(0) > 80
+  end,
+}
+
+local evil_config = {
+  options = {
+    component_separators = "",
+    section_separators = "",
+    theme = {
+      normal = { c = { fg = mocha.text, bg = "NONE" } },
+      inactive = { c = { fg = mocha.subtext0, bg = "NONE" } },
+    },
+    globalstatus = true,
+    disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
   },
-  insert = {
-    a = { bg = mocha.green, fg = mocha.crust, gui = "bold" },
+  sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_y = {},
+    lualine_z = {},
+    lualine_c = {},
+    lualine_x = {},
   },
-  visual = {
-    a = { bg = mocha.mauve, fg = mocha.crust, gui = "bold" },
-  },
-  replace = {
-    a = { bg = mocha.red, fg = mocha.crust, gui = "bold" },
-  },
-  command = {
-    a = { bg = mocha.yellow, fg = mocha.crust, gui = "bold" },
-  },
-  inactive = {
-    a = { bg = mocha.mantle, fg = mocha.overlay0 },
-    b = { bg = mocha.mantle, fg = mocha.overlay0 },
-    c = { bg = mocha.mantle, fg = mocha.overlay0 },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_y = {},
+    lualine_z = {},
+    lualine_c = {},
+    lualine_x = {},
   },
 }
 
-require("lualine").setup({
-  options = {
-    theme = minimal_theme,
-    globalstatus = true,
-    component_separators = { left = "│", right = "│" },
-    section_separators = { left = "", right = "" },
-    disabled_filetypes = {
-      statusline = { "dashboard", "alpha", "starter" },
-    },
-  },
-  sections = {
-    lualine_a = {
-      {
-        "mode",
-        separator = { left = "", right = "" },
-      },
-    },
-    lualine_b = {
-      {
-        "branch",
-        icon = "",
-        color = { fg = mocha.lavender, gui = "bold" },
-      },
-      {
-        "diff",
-        symbols = { added = "+", modified = "~", removed = "-" },
-      },
-    },
-    lualine_c = {
-      {
-        "filename",
-        file_status = true,
-        path = 1,
-        symbols = { modified = " ●", readonly = " 🔒", unnamed = "[No Name]" },
-        color = { fg = mocha.text, gui = "bold" },
-      },
-      {
-        "diagnostics",
-        sources = { "nvim_diagnostic" },
-        symbols = { error = " ", warn = " ", info = " ", hint = "󰌵 " },
-      },
-    },
-    lualine_x = {
-      {
-        function()
-          local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
-          if #buf_clients == 0 then
-            return ""
-          end
-          local names = {}
-          for _, client in ipairs(buf_clients) do
-            table.insert(names, client.name)
-          end
-          return " " .. table.concat(names, ", ")
-        end,
-        color = { fg = mocha.teal },
-      },
-      {
-        "filetype",
-        icon_only = false,
-        color = { fg = mocha.subtext0 },
-      },
-    },
-    lualine_y = {
-      {
-        "progress",
-        color = { fg = mocha.subtext1 },
-      },
-    },
-    lualine_z = {
-      {
-        "location",
-        separator = { left = "", right = "" },
-      },
-    },
+local function ins_left(component)
+  table.insert(evil_config.sections.lualine_c, component)
+end
+
+local function ins_right(component)
+  table.insert(evil_config.sections.lualine_x, component)
+end
+
+-- 1. Dynamic Mode Pill Indicator
+ins_left({
+  function()
+    return "▊"
+  end,
+  color = function()
+    local mode_color = {
+      n = mocha.blue,
+      i = mocha.green,
+      v = mocha.mauve,
+      [" "] = mocha.mauve,
+      V = mocha.mauve,
+      c = mocha.yellow,
+      no = mocha.red,
+      s = mocha.orange,
+      S = mocha.orange,
+      [" "] = mocha.orange,
+      ic = mocha.yellow,
+      R = mocha.red,
+      Rv = mocha.red,
+      cv = mocha.red,
+      ce = mocha.red,
+      r = mocha.teal,
+      rm = mocha.teal,
+      ["r?"] = mocha.teal,
+      ["!"] = mocha.red,
+      t = mocha.red,
+    }
+    return { fg = mode_color[vim.fn.mode()] }
+  end,
+  padding = { left = 0, right = 1 },
+})
+
+-- 2. Mode Name Text
+ins_left({
+  function()
+    return vim.fn.mode():upper()
+  end,
+  color = function()
+    local mode_color = {
+      n = mocha.blue,
+      i = mocha.green,
+      v = mocha.mauve,
+      [" "] = mocha.mauve,
+      V = mocha.mauve,
+      c = mocha.yellow,
+      no = mocha.red,
+      s = mocha.orange,
+      S = mocha.orange,
+      [" "] = mocha.orange,
+      ic = mocha.yellow,
+      R = mocha.red,
+      Rv = mocha.red,
+      cv = mocha.red,
+      ce = mocha.red,
+      r = mocha.teal,
+      rm = mocha.teal,
+      ["r?"] = mocha.teal,
+      ["!"] = mocha.red,
+      t = mocha.red,
+    }
+    return { fg = mode_color[vim.fn.mode()], gui = "bold" }
+  end,
+  padding = { right = 1 },
+})
+
+-- 3. File Size
+ins_left({
+  "filesize",
+  cond = conditions.buffer_not_empty,
+  color = { fg = mocha.subtext0 },
+})
+
+-- 4. File Name
+ins_left({
+  "filename",
+  cond = conditions.buffer_not_empty,
+  color = { fg = mocha.peach, gui = "bold" },
+  symbols = { modified = " ●", readonly = " 🔒", unnamed = "[No Name]" },
+})
+
+-- 5. Location & Progress
+ins_left({ "location", color = { fg = mocha.subtext1 } })
+ins_left({ "progress", color = { fg = mocha.subtext0 } })
+
+-- 6. Diagnostics
+ins_left({
+  "diagnostics",
+  sources = { "nvim_diagnostic" },
+  symbols = { error = " ", warn = " ", info = " ", hint = "󰌵 " },
+  diagnostics_color = {
+    error = { fg = mocha.red },
+    warn = { fg = mocha.yellow },
+    info = { fg = mocha.sky },
+    hint = { fg = mocha.teal },
   },
 })
+
+-- Spacer (Pushes following items to the right)
+ins_left({
+  function()
+    return "%="
+  end,
+})
+
+-- 7. Active LSP Indicator
+ins_left({
+  function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    if next(clients) == nil then
+      return "󰅛 No LSP"
+    end
+    local names = {}
+    for _, client in ipairs(clients) do
+      table.insert(names, client.name)
+    end
+    return "  " .. table.concat(names, ", ")
+  end,
+  color = { fg = mocha.teal, gui = "bold" },
+})
+
+-- 8. Filetype
+ins_right({
+  "filetype",
+  icon_only = false,
+  color = { fg = mocha.subtext0 },
+})
+
+-- 9. Git Branch
+ins_right({
+  "branch",
+  icon = "",
+  color = { fg = mocha.lavender, gui = "bold" },
+})
+
+-- 10. Git Diff
+ins_right({
+  "diff",
+  symbols = { added = " ", modified = "󰝤 ", removed = " " },
+  diff_color = {
+    added = { fg = mocha.green },
+    modified = { fg = mocha.orange },
+    removed = { fg = mocha.red },
+  },
+  cond = conditions.hide_in_width,
+})
+
+-- 11. Right Dynamic Mode Bar
+ins_right({
+  function()
+    return "▊"
+  end,
+  color = function()
+    local mode_color = {
+      n = mocha.blue,
+      i = mocha.green,
+      v = mocha.mauve,
+      [" "] = mocha.mauve,
+      V = mocha.mauve,
+      c = mocha.yellow,
+      no = mocha.red,
+      s = mocha.orange,
+      S = mocha.orange,
+      [" "] = mocha.orange,
+      ic = mocha.yellow,
+      R = mocha.red,
+      Rv = mocha.red,
+      cv = mocha.red,
+      ce = mocha.red,
+      r = mocha.teal,
+      rm = mocha.teal,
+      ["r?"] = mocha.teal,
+      ["!"] = mocha.red,
+      t = mocha.red,
+    }
+    return { fg = mode_color[vim.fn.mode()] }
+  end,
+  padding = { left = 1 },
+})
+
+require("lualine").setup(evil_config)
 
 
 
