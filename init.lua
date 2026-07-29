@@ -90,22 +90,9 @@ require("plugins.lsp")
 -- 5. Asynchronous Plugin Updater (:PluginUpdate)
 -- Updates all installed native plugins in parallel without blocking the editor
 vim.api.nvim_create_user_command("PluginUpdate", function()
-  local pack_path = vim.fn.stdpath("data") .. "/site/pack/plugins/start"
-  local uv = vim.uv or vim.loop
   local plugins_to_update = {}
-
-  local handle = uv.fs_scandir(pack_path)
-  if not handle then
-    vim.api.nvim_echo({ { "Failed to read plugin directory.", "ErrorMsg" } }, true, {})
-    return
-  end
-
-  while true do
-    local name, type = uv.fs_scandir_next(handle)
-    if not name then break end
-    if type == "directory" and name ~= "." and name ~= ".." then
-      table.insert(plugins_to_update, name)
-    end
+  for _, p in ipairs(plugins) do
+    table.insert(plugins_to_update, p.name)
   end
 
   if #plugins_to_update == 0 then
@@ -113,38 +100,41 @@ vim.api.nvim_create_user_command("PluginUpdate", function()
     return
   end
 
-  vim.api.nvim_echo({ { "Checking for updates in the background...", "WarningMsg" } }, true, {})
-
   local completed = 0
   local updated = {}
   local failed = {}
 
   for _, name in ipairs(plugins_to_update) do
     local path = pack_path .. "/" .. name
-    vim.fn.jobstart({ "git", "-C", path, "pull", "--rebase", "--depth=1" }, {
-      on_exit = function(_, exit_code)
-        completed = completed + 1
-        if exit_code == 0 then
-          table.insert(updated, name)
-        else
-          table.insert(failed, name)
-        end
+    if vim.fn.isdirectory(path) == 1 then
+      local cmd = string.format("git -C %q fetch --depth=1 && git -C %q reset --hard FETCH_HEAD", path, path)
+      vim.fn.jobstart({ "sh", "-c", cmd }, {
+        on_exit = function(_, exit_code)
+          completed = completed + 1
+          if exit_code == 0 then
+            table.insert(updated, name)
+          else
+            table.insert(failed, name)
+          end
 
-        -- Print summary once all jobs finish
-        if completed == #plugins_to_update then
-          local msg = { { "Plugin Update Complete!\n", "WarningMsg" } }
-          if #updated > 0 then
-            table.insert(msg, { "Successfully updated: " .. table.concat(updated, ", ") .. "\n", "Normal" })
+          -- Print summary once all jobs finish
+          if completed == #plugins_to_update then
+            local msg = { { "Plugin Update Complete!\n", "WarningMsg" } }
+            if #updated > 0 then
+              table.insert(msg, { "Successfully updated " .. #updated .. " plugins!\n", "Normal" })
+            end
+            if #failed > 0 then
+              table.insert(msg, { "Failed to update: " .. table.concat(failed, ", ") .. "\n", "ErrorMsg" })
+            end
+            vim.schedule(function()
+              vim.api.nvim_echo(msg, true, {})
+            end)
           end
-          if #failed > 0 then
-            table.insert(msg, { "Failed to update: " .. table.concat(failed, ", ") .. "\n", "ErrorMsg" })
-          end
-          vim.schedule(function()
-            vim.api.nvim_echo(msg, true, {})
-          end)
-        end
-      end
-    })
+        end,
+      })
+    else
+      completed = completed + 1
+    end
   end
 end, {})
 
